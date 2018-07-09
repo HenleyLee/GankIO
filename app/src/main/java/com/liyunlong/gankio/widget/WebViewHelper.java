@@ -1,12 +1,19 @@
 package com.liyunlong.gankio.widget;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import com.orhanobut.logger.Logger;
+
+import java.net.URISyntaxException;
 
 /**
  * WebView辅助类
@@ -49,6 +56,27 @@ public class WebViewHelper {
         webView.requestFocusFromTouch(); // 设置支持获取手势焦点(WebView中有输入框时必须设置)
         webView.requestFocus();// 设置触摸焦点起作用
     }
+
+    /**
+     * 处理拦截到的Url
+     */
+    public static boolean handleInterceptUrl(Context context, String url) {
+        if (!url.startsWith("http") && !url.startsWith("https")) { // 判断Url是否以http或https开头
+            Logger.i("InterceptUrl = " + url);
+            try {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); // 打开APP
+            } catch (NullPointerException | ActivityNotFoundException e) { // 打开APP失败
+                try {
+                    context.startActivity(Intent.parseUri(url, 0)); // 打开APP
+                } catch (URISyntaxException | ActivityNotFoundException e1) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 销毁WebView

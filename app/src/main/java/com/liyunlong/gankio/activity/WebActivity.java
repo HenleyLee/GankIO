@@ -100,10 +100,7 @@ public class WebActivity extends BaseActivity {
         mWebView.setDownloadListener(new DownloadListener() { // 初始化下载
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                if ("application/vnd.android.package-archive".equalsIgnoreCase(mimetype)
-                        || "application/octet-stream".equalsIgnoreCase(mimetype)) {
-                    Utility.openWebKit(getContext(), url);
-                }
+                Utility.openWebKit(getContext(), url);
             }
         });
 
@@ -281,6 +278,9 @@ public class WebActivity extends BaseActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (WebViewHelper.handleInterceptUrl(view.getContext(), url)) {
+                return true;
+            }
             view.loadUrl(url);
             return true;
         }
