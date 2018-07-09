@@ -120,18 +120,6 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
     }
 
     @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        pageIndex = GankConfig.PAGE_INDEX;
-        loadData();
-    }
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        pageIndex++;
-        loadData();
-    }
-
-    @Override
     public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
         int adapterPosition = holder.getAdapterPosition();
         GankEntity data = mAdapter.getItem(adapterPosition);
@@ -141,6 +129,18 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
         } else {
             WebActivity.startActivity(getContext(), data.getTitle(), data.getUrl());
         }
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        pageIndex = GankConfig.PAGE_INDEX;
+        loadData();
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        pageIndex++;
+        loadData();
     }
 
     @Override

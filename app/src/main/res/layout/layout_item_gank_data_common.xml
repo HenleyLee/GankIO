@@ -30,7 +30,6 @@
             android:id="@+id/gank_data_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
             android:ellipsize="end"
             android:gravity="top|start"
             android:lineSpacingExtra="2dp"
@@ -41,6 +40,14 @@
             app:layout_constraintStart_toEndOf="@+id/gank_data_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Space
+            android:id="@+id/gank_data_space"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/gank_data_icon"
+            app:layout_constraintTop_toBottomOf="@+id/gank_data_title" />
+
         <TextView
             android:id="@+id/gank_data_author"
             android:layout_width="wrap_content"
@@ -50,8 +57,7 @@
             android:textStyle="italic"
             android:typeface="serif"
             app:layout_constraintStart_toEndOf="@+id/gank_data_icon"
-            app:layout_constraintStart_toStartOf="@+id/gank_data_title"
-            app:layout_constraintTop_toBottomOf="@+id/gank_data_title" />
+            app:layout_constraintTop_toBottomOf="@+id/gank_data_space" />
 
         <TextView
             android:id="@+id/gank_data_date"
@@ -62,7 +68,7 @@
             android:textStyle="normal"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gank_data_title" />
+            app:layout_constraintTop_toBottomOf="@+id/gank_data_space" />
 
     </android.support.constraint.ConstraintLayout>
 

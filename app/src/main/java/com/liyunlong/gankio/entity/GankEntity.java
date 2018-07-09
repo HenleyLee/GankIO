@@ -17,7 +17,7 @@ import java.util.List;
 public class GankEntity implements Parcelable {
 
     @SerializedName("_id")
-    private String id;                  // 对象id
+    private String id;                  // 对象ID
     @SerializedName("createdAt")
     private Date createdTime;           // 创建时间
     @SerializedName("publishedAt")
