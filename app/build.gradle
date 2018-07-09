@@ -41,6 +41,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (!variant.buildType.debuggable) {
+                output.assemble.doLast {
+                    copy {
+                        from output.outputFile
+                        into project.rootDir
+                        rename { String fileName ->
+                            fileName.replace("app-release.apk", "Gank.IO-${variant.versionName}.apk")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 dependencies {
