@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_history"
+        android:orderInCategory="1"
+        android:title="@string/menu_main_history"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_gankio"
+        android:orderInCategory="1"
+        android:title="@string/menu_main_gankio"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_github"
+        android:orderInCategory="1"
+        android:title="@string/menu_main_github"
+        app:showAsAction="never" />
+</menu>

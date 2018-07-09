@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0086FF</color>
+    <color name="colorPrimaryDark">#0086FF</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorBallPulse">#FC5638</color>
+
+    <color name="gank_divider_line">#FFCCCCCC</color>
+    <color name="gank_data_title">#FF191919</color>
+    <color name="gank_data_desc">#FF737373</color>
+    <color name="gank_daily_title">#FF000000</color>
+
+    <color name="status_text">#9d9d9d</color>
+
+</resources>

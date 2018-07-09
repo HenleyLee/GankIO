@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_all"
+            android:icon="@drawable/ic_menu_all"
+            android:title="@string/gank_type_all" />
+        <item
+            android:id="@+id/navigation_welfare"
+            android:icon="@drawable/ic_menu_welfare"
+            android:title="@string/gank_type_welfare" />
+        <item
+            android:id="@+id/navigation_android"
+            android:icon="@drawable/ic_menu_android"
+            android:title="@string/gank_type_android" />
+        <item
+            android:id="@+id/navigation_ios"
+            android:icon="@drawable/ic_menu_ios"
+            android:title="@string/gank_type_ios" />
+        <item
+            android:id="@+id/navigation_js"
+            android:icon="@drawable/ic_menu_js"
+            android:title="@string/gank_type_js" />
+        <item
+            android:id="@+id/navigation_video"
+            android:icon="@drawable/ic_menu_video"
+            android:title="@string/gank_type_video" />
+        <item
+            android:id="@+id/navigation_resource"
+            android:icon="@drawable/ic_menu_resource"
+            android:title="@string/gank_type_resources" />
+        <item
+            android:id="@+id/navigation_app"
+            android:icon="@drawable/ic_menu_app"
+            android:title="@string/gank_type_app" />
+        <item
+            android:id="@+id/navigation_recommend"
+            android:icon="@drawable/ic_menu_recommend"
+            android:title="@string/gank_type_recommend" />
+    </group>
+
+</menu>
