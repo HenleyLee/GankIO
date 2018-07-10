@@ -1,11 +1,13 @@
 package com.liyunlong.gankio.activity;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -52,12 +54,17 @@ public class PictureActivity extends BaseActivity {
     private String mTitle;
     private PhotoView ivPicture;
 
-    public static void startActivity(Context context, String title, String url) {
-        Intent intent = new Intent(context, PictureActivity.class);
+    public static void startActivity(Activity activity, String title, String url, View sharedElement) {
+        Intent intent = new Intent(activity, PictureActivity.class);
         intent.putExtra(GankConfig.GANK_PAGR_TITLE, title);
         intent.putExtra(GankConfig.GANK_PAGE_URL, url);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        if (sharedElement != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            sharedElement.setTransitionName(GankConfig.IMAGE_TRANSITION_NAME);
+            activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, sharedElement, GankConfig.IMAGE_TRANSITION_NAME).toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
     @Override
@@ -95,6 +102,9 @@ public class PictureActivity extends BaseActivity {
         refreshLayout.setEnableLoadMore(false);
         setRefreshLayout(refreshLayout);
         ivPicture = findViewById(R.id.iv_picture);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ivPicture.setTransitionName(GankConfig.IMAGE_TRANSITION_NAME);
+        }
         ivPicture.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -272,9 +282,12 @@ public class PictureActivity extends BaseActivity {
                 ivPicture.setScale(1);
                 return;
             }
-            ivPicture.setImageDrawable(null);
         }
-        super.onBackClick();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        } else {
+            super.onBackClick();
+        }
     }
 
 }

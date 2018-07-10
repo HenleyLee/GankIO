@@ -32,8 +32,10 @@ public class GankConfig {
 
     public static final String GANK_TYPE = "gank_type";
     public static final String GANK_DAILY = "gank_daily";
+    public static final String GANK_CATEGORY = "gank_category";
     public static final String GANK_PAGE_URL = "gank_page_url";
     public static final String GANK_PAGR_TITLE = "gank_pagr_title";
+    public static final String IMAGE_TRANSITION_NAME = "imageTransitionName";
 
     public static final int[] MATERIAL_COLORS = {0XFF0086FF, 0XFF0086FF, 0XFF0086FF, 0XFF0086FF};
 

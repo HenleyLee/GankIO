@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.adapter.GankDailyAdapter;
@@ -119,7 +120,8 @@ public class GankDailyActivity extends BaseActivity implements OnGankDailyItemCl
         String type = gankEntity.getType();
         if (TextUtils.equals(type, GankType.Welfare.getName())) {
             String title = DateHelper.date2String(gankEntity.getPublishedTime().getTime(), GankConfig.DISPLAY_DATE_FORMAT);
-            PictureActivity.startActivity(getContext(), title, gankEntity.getUrl());
+            ImageView ivPicture = view.findViewById(R.id.gank_daily_picture);
+            PictureActivity.startActivity(getContext(), title, gankEntity.getUrl(), ivPicture);
         } else {
             WebActivity.startActivity(getContext(), gankEntity.getTitle(), gankEntity.getUrl());
         }

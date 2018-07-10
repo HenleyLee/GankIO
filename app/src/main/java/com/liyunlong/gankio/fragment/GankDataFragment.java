@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.activity.PictureActivity;
@@ -123,9 +125,10 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
     public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
         int adapterPosition = holder.getAdapterPosition();
         GankEntity data = mAdapter.getItem(adapterPosition);
-        if (gankType == GankType.Welfare) {
+        if (gankType == GankType.Welfare || TextUtils.equals(data.getType(), GankType.Welfare.getName())) {
             String title = DateHelper.date2String(data.getPublishedTime().getTime(), GankConfig.DISPLAY_DATE_FORMAT);
-            PictureActivity.startActivity(getContext(), title, data.getUrl());
+            ImageView ivPicture = view.findViewById(R.id.gank_data_picture);
+            PictureActivity.startActivity(getActivity(), title, data.getUrl(), ivPicture);
         } else {
             WebActivity.startActivity(getContext(), data.getTitle(), data.getUrl());
         }
