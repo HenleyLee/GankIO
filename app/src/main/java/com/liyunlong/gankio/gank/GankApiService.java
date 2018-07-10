@@ -1,8 +1,11 @@
 package com.liyunlong.gankio.gank;
 
 import com.liyunlong.gankio.entity.BaseGank;
+import com.liyunlong.gankio.entity.CategoryEntity;
 import com.liyunlong.gankio.entity.GankDaily;
 import com.liyunlong.gankio.entity.GankEntity;
+import com.liyunlong.gankio.entity.SubCategoryEntity;
+import com.liyunlong.gankio.entity.TimeReadEntity;
 
 import java.util.List;
 
@@ -35,6 +38,7 @@ public interface GankApiService {
      * @param type 数据类型： 福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
      * @param size 请求个数： 数字，大于0
      * @param page 第几页：数字，大于0
+     * @see GankEntity
      */
     @GET("data/{type}/{size}/{page}")
     Observable<BaseGank<List<GankEntity>>> getGankData(@Path("type") String type, @Path("size") int size, @Path("page") int page);
@@ -44,5 +48,33 @@ public interface GankApiService {
      */
     @GET("day/history")
     Observable<BaseGank<List<String>>> getGankHistory();
+
+    /**
+     * 获取闲读的主分类
+     *
+     * @see CategoryEntity
+     */
+    @GET("xiandu/categories")
+    Observable<BaseGank<List<CategoryEntity>>> getTimeReadCategory();
+
+    /**
+     * 获取闲读的子分类
+     *
+     * @param category 主分类名称(英文)
+     * @see SubCategoryEntity
+     */
+    @GET("xiandu/category/{category}")
+    Observable<BaseGank<List<SubCategoryEntity>>> getTimeReadSubCategory(@Path("category") String category);
+
+    /**
+     * 获取闲读数据
+     *
+     * @param category 子分类ID
+     * @param size     请求个数： 数字，大于0
+     * @param page     第几页：数字，大于0
+     * @see TimeReadEntity
+     */
+    @GET("xiandu/data/id/{category}/count/{size}/page/{page}")
+    Observable<BaseGank<List<TimeReadEntity>>> getTimeReadData(@Path("category") String category, @Path("size") int size, @Path("page") int page);
 
 }

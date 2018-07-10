@@ -8,6 +8,9 @@
 
     <dimen name="actionBarSize">45dp</dimen>
 
+    <dimen name="tabLayoutHeight">46dp</dimen>
+    <dimen name="tabTextSize">15sp</dimen>
+
     <dimen name="gank_data_title">15sp</dimen>
     <dimen name="gank_data_desc">12sp</dimen>
     <dimen name="gank_daily_title">20sp</dimen>

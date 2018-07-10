@@ -48,4 +48,10 @@
         <item name="android:textColor">@color/gank_data_desc</item>
     </style>
 
+    <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/tabTextSize</item>
+        <item name="android:textColor">@color/tabTextColorNormal</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

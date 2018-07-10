@@ -65,7 +65,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected boolean onMenuItemSelected(MenuItem menuItem, int itemId) {
-        if (itemId == R.id.main_history) {
+        if (itemId == R.id.main_read) {
+            TimeReadActivity.startActivity(getContext());
+        } else if (itemId == R.id.main_history) {
             GankHistoryActivity.startActivity(getContext());
         } else if (itemId == R.id.main_gankio) {
             WebActivity.startActivity(getContext(), GankConfig.GANK_HOME_NAME, GankConfig.GANK_HOME_URL);

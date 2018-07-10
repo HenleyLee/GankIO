@@ -41,6 +41,9 @@
         <activity
             android:name=".activity.PictureActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TimeReadActivity"
+            android:screenOrientation="portrait" />
 
         <!-- *************************FileProvider begin************************* -->
         <provider

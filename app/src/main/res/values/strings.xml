@@ -28,6 +28,7 @@
     <string name="gank_type_app">App</string>
     <string name="gank_type_recommend">瞎推荐</string>
 
+    <string name="menu_main_read">Gank闲读</string>
     <string name="menu_main_history">Gank每日力推</string>
     <string name="menu_main_gankio">Gank.IO 主页</string>
     <string name="menu_main_github">Github热门仓库</string>
@@ -41,6 +42,10 @@
 
     <string name="menu_picture_download">下载</string>
     <string name="menu_picture_share">分享</string>
+
+    <string name="menu_read_filter">筛选</string>
+
+    <string name="time_read_category_empty">没有加载到分类数据</string>
 
     <string name="status_empty">客官，暂无数据哟~</string>
     <string name="status_network_poor">网络环境不佳，请稍后重试~</string>
