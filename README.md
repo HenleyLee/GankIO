@@ -2,7 +2,7 @@
 借助[Gank.Io](https://gank.io/)提供的API开发的一个Android客户端。
 
 ## 下载 ##
-[干货集中营(Gank.Io)](https://github.com/lyl873825813/GankIO/tree/master/Gank.IO-2.0.apk)
+[干货集中营(Gank.Io)](https://github.com/lyl873825813/GankIO/tree/master/Gank.IO-3.0.apk)
 
 ## 第三方依赖 ##
 * [Gson](https://github.com/google/gson)
