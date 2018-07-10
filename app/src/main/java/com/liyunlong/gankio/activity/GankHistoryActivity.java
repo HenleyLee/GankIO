@@ -11,8 +11,8 @@ import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.adapter.GankHistoryAdapter;
 import com.liyunlong.gankio.base.BaseActivity;
 import com.liyunlong.gankio.contract.GankHistoryContract;
+import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.GankDaily;
-import com.liyunlong.gankio.entity.GankHistory;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.listener.OnItemClickListener;
@@ -122,8 +122,8 @@ public class GankHistoryActivity extends BaseActivity<GankHistoryPresenter> impl
     @Override
     public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
         int adapterPosition = holder.getAdapterPosition();
-        GankDaily gankDaily = mAdapter.getItem(adapterPosition);
-        GankDailyActivity.startActivity(getContext(), gankDaily);
+        BaseGank<GankDaily> gank = mAdapter.getItem(adapterPosition);
+        GankDailyActivity.startActivity(getContext(), gank.getResults());
     }
 
     @Override
@@ -144,11 +144,11 @@ public class GankHistoryActivity extends BaseActivity<GankHistoryPresenter> impl
     }
 
     @Override
-    public void handleGankHistoryResult(GankHistory gankHistory) {
-        if (gankHistory == null) {
+    public void handleGankHistoryResult(BaseGank<List<String>> gank) {
+        if (gank == null) {
             return;
         }
-        historyDates = gankHistory.getResults();
+        historyDates = gank.getResults();
         if (historyDates != null && !historyDates.isEmpty()) {
             pageSize = (int) Math.ceil(historyDates.size() * 1.0f / GankConfig.PAGE_SIZE);
         }
@@ -157,18 +157,18 @@ public class GankHistoryActivity extends BaseActivity<GankHistoryPresenter> impl
     }
 
     @Override
-    public void handleHistoryGankDailyResult(List<GankDaily> gankDailies) {
+    public void handleHistoryGankDailyResult(List<BaseGank<GankDaily>> ganks) {
         stopRefreshingOrLoading();
-        if (gankDailies == null || gankDailies.isEmpty()) {
+        if (ganks == null || ganks.isEmpty()) {
             mRefreshLayout.setEnableLoadMore(false);
             mRefreshLayout.setNoMoreData(true);
             updateEmptyViewVisibility();
             return;
         }
         if (pageIndex == GankConfig.PAGE_INDEX) {
-            mAdapter.refresh(gankDailies);
+            mAdapter.refresh(ganks);
         } else {
-            mAdapter.addAll(gankDailies);
+            mAdapter.addAll(ganks);
         }
         updateEmptyViewVisibility();
         boolean hasNoMoreData = pageIndex >= pageSize;

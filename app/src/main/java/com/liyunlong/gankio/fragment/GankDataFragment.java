@@ -15,7 +15,7 @@ import com.liyunlong.gankio.adapter.GankDataCommonAdapter;
 import com.liyunlong.gankio.adapter.GankDataWelfareAdapter;
 import com.liyunlong.gankio.base.BaseFragment;
 import com.liyunlong.gankio.contract.GankDataContract;
-import com.liyunlong.gankio.entity.GankData;
+import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.GankEntity;
 import com.liyunlong.gankio.entity.GankType;
 import com.liyunlong.gankio.gank.GankConfig;
@@ -161,15 +161,15 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
     }
 
     @Override
-    public void handleGankDataResult(GankData gankData) {
+    public void handleGankDataResult(BaseGank<List<GankEntity>> gank) {
         stopRefreshingOrLoading();
-        if (gankData == null) {
+        if (gank == null) {
             mRefreshLayout.setEnableLoadMore(false);
             mRefreshLayout.setNoMoreData(true);
             updateEmptyViewVisibility();
             return;
         }
-        List<GankEntity> results = gankData.getResults();
+        List<GankEntity> results = gank.getResults();
         if (pageIndex == GankConfig.PAGE_INDEX) {
             mAdapter.refresh(results);
         } else {

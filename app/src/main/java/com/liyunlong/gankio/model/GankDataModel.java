@@ -1,8 +1,11 @@
 package com.liyunlong.gankio.model;
 
 import com.liyunlong.gankio.contract.GankDataContract;
-import com.liyunlong.gankio.entity.GankData;
+import com.liyunlong.gankio.entity.BaseGank;
+import com.liyunlong.gankio.entity.GankEntity;
 import com.liyunlong.gankio.http.HttpManager;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -15,7 +18,7 @@ import io.reactivex.Observable;
 public class GankDataModel implements GankDataContract.Model {
 
     @Override
-    public Observable<GankData> getGankData(String type, int size, int page) {
+    public Observable<BaseGank<List<GankEntity>>> getGankData(String type, int size, int page) {
         return HttpManager.getInstance()
                 .getGankApiService()
                 .getGankData(type, size, page);

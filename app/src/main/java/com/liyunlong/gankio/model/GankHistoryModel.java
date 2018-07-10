@@ -1,8 +1,8 @@
 package com.liyunlong.gankio.model;
 
 import com.liyunlong.gankio.contract.GankHistoryContract;
+import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.GankDaily;
-import com.liyunlong.gankio.entity.GankHistory;
 import com.liyunlong.gankio.entity.HistoryDate;
 import com.liyunlong.gankio.http.HttpManager;
 
@@ -26,14 +26,14 @@ import io.reactivex.schedulers.Schedulers;
 public class GankHistoryModel implements GankHistoryContract.Model {
 
     @Override
-    public Observable<GankHistory> getGankHistory() {
+    public Observable<BaseGank<List<String>>> getGankHistory() {
         return HttpManager.getInstance()
                 .getGankApiService()
                 .getGankHistory();
     }
 
     @Override
-    public Single<List<GankDaily>> getHistoryGankDaily(List<String> historyDates) {
+    public Single<List<BaseGank<GankDaily>>> getHistoryGankDaily(List<String> historyDates) {
         return Observable.fromIterable(historyDates)
                 .map(new Function<String, HistoryDate>() {
                     @Override
@@ -47,16 +47,16 @@ public class GankHistoryModel implements GankHistoryContract.Model {
                         return historyDate != null;
                     }
                 })
-                .flatMap(new Function<HistoryDate, ObservableSource<GankDaily>>() {
+                .flatMap(new Function<HistoryDate, ObservableSource<BaseGank<GankDaily>>>() {
                     @Override
-                    public ObservableSource<GankDaily> apply(HistoryDate historyDate) throws Exception {
+                    public ObservableSource<BaseGank<GankDaily>> apply(HistoryDate historyDate) throws Exception {
                         return getGankDaily(historyDate.getYear(), historyDate.getMonth(), historyDate.getDay())
-                                .filter(new Predicate<GankDaily>() {
+                                .filter(new Predicate<BaseGank<GankDaily>>() {
                                     @Override
-                                    public boolean test(GankDaily gankDaily) throws Exception {
-                                        return gankDaily != null
-                                                && gankDaily.getDailyResults() != null
-                                                && gankDaily.getDailyResults().getAndroidData() != null;
+                                    public boolean test(BaseGank<GankDaily> gank) throws Exception {
+                                        return gank != null
+                                                && gank.getResults() != null
+                                                && gank.getResults().getAndroidData() != null;
                                     }
                                 })
                                 .unsubscribeOn(Schedulers.io()) // 取消订阅
@@ -64,11 +64,11 @@ public class GankHistoryModel implements GankHistoryContract.Model {
                                 .observeOn(AndroidSchedulers.mainThread());// 指定下游接收事件的线程(每次指定都有效)
                     }
                 })
-                .toSortedList(new Comparator<GankDaily>() {
+                .toSortedList(new Comparator<BaseGank<GankDaily>>() {
                     @Override
-                    public int compare(GankDaily gankDaily1, GankDaily gankDaily2) {
-                        return gankDaily2.getDailyResults().getAndroidData().get(0).getPublishedTime().compareTo(
-                                gankDaily1.getDailyResults().getAndroidData().get(0).getPublishedTime());
+                    public int compare(BaseGank<GankDaily> gank1, BaseGank<GankDaily> gank2) {
+                        return gank2.getResults().getAndroidData().get(0).getPublishedTime().compareTo(
+                                gank1.getResults().getAndroidData().get(0).getPublishedTime());
                     }
                 })
                 .unsubscribeOn(Schedulers.newThread()) // 取消订阅
@@ -77,7 +77,7 @@ public class GankHistoryModel implements GankHistoryContract.Model {
     }
 
     @Override
-    public Observable<GankDaily> getGankDaily(String year, String month, String day) {
+    public Observable<BaseGank<GankDaily>> getGankDaily(String year, String month, String day) {
         return HttpManager.getInstance()
                 .getGankApiService()
                 .getGankDaily(year, month, day);

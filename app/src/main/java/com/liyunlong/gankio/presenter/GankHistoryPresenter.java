@@ -1,8 +1,8 @@
 package com.liyunlong.gankio.presenter;
 
 import com.liyunlong.gankio.contract.GankHistoryContract;
+import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.GankDaily;
-import com.liyunlong.gankio.entity.GankHistory;
 import com.liyunlong.gankio.http.ExceptionEngine;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.http.HttpObserver;
@@ -22,7 +22,7 @@ public class GankHistoryPresenter extends GankHistoryContract.Presenter<GankHist
 
     @Override
     public void getGankHistory() {
-        subscribe(getModel().getGankHistory(), new HttpObserver<GankHistory>(getContext()) {
+        subscribe(getModel().getGankHistory(), new HttpObserver<BaseGank<List<String>>>(getContext()) {
 
             @Override
             public void onError(HttpException exception) {
@@ -30,8 +30,8 @@ public class GankHistoryPresenter extends GankHistoryContract.Presenter<GankHist
             }
 
             @Override
-            public void onNext(GankHistory gankHistory) {
-                getView().handleGankHistoryResult(gankHistory);
+            public void onNext(BaseGank<List<String>> gank) {
+                getView().handleGankHistoryResult(gank);
             }
         });
     }
@@ -39,10 +39,10 @@ public class GankHistoryPresenter extends GankHistoryContract.Presenter<GankHist
     @Override
     public void getHistoryGankDaily(List<String> historyDates) {
         add(getModel().getHistoryGankDaily(historyDates)
-                .subscribe(new Consumer<List<GankDaily>>() {
+                .subscribe(new Consumer<List<BaseGank<GankDaily>>>() {
                     @Override
-                    public void accept(List<GankDaily> gankDailies) throws Exception {
-                        getView().handleHistoryGankDailyResult(gankDailies);
+                    public void accept(List<BaseGank<GankDaily>> ganks) throws Exception {
+                        getView().handleHistoryGankDailyResult(ganks);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

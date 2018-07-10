@@ -8,10 +8,12 @@ import com.google.gson.annotations.SerializedName;
  * @author liyunlong
  * @date 2018/7/3 15:09
  */
-public class BaseGank {
+public class BaseGank<T> {
 
     @SerializedName(value = "error")
     private Boolean error;
+    @SerializedName("results")
+    private T results;
 
     public Boolean getError() {
         return error;
@@ -19,6 +21,14 @@ public class BaseGank {
 
     public void setError(Boolean error) {
         this.error = error;
+    }
+
+    public T getResults() {
+        return results;
+    }
+
+    public void setResults(T results) {
+        this.results = results;
     }
 
 }

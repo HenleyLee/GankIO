@@ -1,9 +1,12 @@
 package com.liyunlong.gankio.contract;
 
-import com.liyunlong.gankio.entity.GankData;
+import com.liyunlong.gankio.entity.BaseGank;
+import com.liyunlong.gankio.entity.GankEntity;
 import com.liyunlong.gankio.mvp.BasePresenter;
 import com.liyunlong.gankio.mvp.IMVPModel;
 import com.liyunlong.gankio.mvp.IMVPView;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -17,12 +20,12 @@ public interface GankDataContract {
 
     interface View extends IMVPView {
 
-        void handleGankDataResult(GankData gankData);
+        void handleGankDataResult(BaseGank<List<GankEntity>> gank);
     }
 
     interface Model extends IMVPModel {
 
-        Observable<GankData> getGankData(String type, int size, int page);
+        Observable<BaseGank<List<GankEntity>>> getGankData(String type, int size, int page);
     }
 
     abstract class Presenter<Model> extends BasePresenter<Model, View> {

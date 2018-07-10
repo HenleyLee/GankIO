@@ -88,13 +88,13 @@ public class GankDailyActivity extends BaseActivity implements OnGankDailyItemCl
     }
 
     public void handleGankDailyResult() {
-        if (gankDaily == null || gankDaily.getDailyResults() == null) {
+        if (gankDaily == null) {
             return;
         }
-        Observable.just(gankDaily.getDailyResults())
-                .map(new Function<GankDaily.DailyResults, List<List<GankEntity>>>() {
+        Observable.just(gankDaily)
+                .map(new Function<GankDaily, List<List<GankEntity>>>() {
                     @Override
-                    public List<List<GankEntity>> apply(GankDaily.DailyResults dailyResults) throws Exception {
+                    public List<List<GankEntity>> apply(GankDaily dailyResults) throws Exception {
                         return dailyResults.getDailyResults();
                     }
                 })

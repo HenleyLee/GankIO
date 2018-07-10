@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.liyunlong.gankio.R;
+import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.GankDaily;
 import com.liyunlong.gankio.entity.GankEntity;
 import com.liyunlong.gankio.gank.GankConfig;
@@ -27,9 +28,9 @@ import java.util.Collection;
  * @author liyunlong
  * @date 2018/7/5 13:32
  */
-public class GankHistoryAdapter extends CommonAdapter<GankDaily> {
+public class GankHistoryAdapter extends CommonAdapter<BaseGank<GankDaily>> {
 
-    public GankHistoryAdapter(Collection<GankDaily> datas) {
+    public GankHistoryAdapter(Collection<BaseGank<GankDaily>> datas) {
         super(datas);
     }
 
@@ -39,10 +40,10 @@ public class GankHistoryAdapter extends CommonAdapter<GankDaily> {
     }
 
     @Override
-    public void convert(ViewHolder holder, GankDaily data, int position) {
-        if (data != null && data.getDailyResults() != null) {
-            GankDaily.DailyResults dailyResults = data.getDailyResults();
-            ArrayList<GankEntity> welfareData = dailyResults.getWelfareData();
+    public void convert(ViewHolder holder, BaseGank<GankDaily> data, int position) {
+        if (data != null && data.getResults() != null) {
+            GankDaily gankDaily = data.getResults();
+            ArrayList<GankEntity> welfareData = gankDaily.getWelfareData();
             String welfareUrl = null;
             if (welfareData != null && !welfareData.isEmpty()) {
                 welfareUrl = welfareData.get(0).getUrl();
@@ -69,7 +70,7 @@ public class GankHistoryAdapter extends CommonAdapter<GankDaily> {
                         }
                     });
 
-            ArrayList<GankEntity> androidData = dailyResults.getAndroidData();
+            ArrayList<GankEntity> androidData = gankDaily.getAndroidData();
             if (androidData != null && !androidData.isEmpty()) {
                 GankEntity gankEntity = androidData.get(0);
                 holder.setText(R.id.gank_history_title, gankEntity.getTitle());
