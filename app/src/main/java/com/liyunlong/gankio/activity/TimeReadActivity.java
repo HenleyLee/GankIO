@@ -15,6 +15,7 @@ import com.liyunlong.gankio.contract.TimeReadCategoryContract;
 import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.CategoryEntity;
 import com.liyunlong.gankio.fragment.TimeReadFragment;
+import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.presenter.TimeReadCategoryPresenter;
 import com.liyunlong.gankio.utils.NetworkHelper;
@@ -72,6 +73,13 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 mCurrentPosition = position;
+            }
+        });
+
+        findViewById(R.id.time_read_fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebActivity.startActivity(getContext(), GankConfig.GANK_SUBMIT_READ_NAME, GankConfig.GANK_SUBMIT_READ_URL);
             }
         });
     }
