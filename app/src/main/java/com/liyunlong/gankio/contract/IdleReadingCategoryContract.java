@@ -16,22 +16,22 @@ import io.reactivex.Observable;
  * @author liyunlong
  * @date 2018/7/9 14:21
  */
-public interface TimeReadCategoryContract {
+public interface IdleReadingCategoryContract {
 
     interface View extends IMVPView {
 
-        void handleTimeReadCategoryResult(BaseGank<List<CategoryEntity>> gank);
+        void handleIdleReadingCategoryResult(BaseGank<List<CategoryEntity>> gank);
 
     }
 
     interface Model extends IMVPModel {
 
-        Observable<BaseGank<List<CategoryEntity>>> getTimeReadCategory();
+        Observable<BaseGank<List<CategoryEntity>>> getIdleReadingCategory();
     }
 
     abstract class Presenter<Model> extends BasePresenter<Model, View> {
 
-        public abstract void getTimeReadCategory();
+        public abstract void getIdleReadingCategory();
 
     }
 

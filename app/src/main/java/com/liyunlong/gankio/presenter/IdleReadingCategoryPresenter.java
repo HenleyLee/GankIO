@@ -1,11 +1,11 @@
 package com.liyunlong.gankio.presenter;
 
-import com.liyunlong.gankio.contract.TimeReadCategoryContract;
+import com.liyunlong.gankio.contract.IdleReadingCategoryContract;
 import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.CategoryEntity;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.http.HttpObserver;
-import com.liyunlong.gankio.model.TimeReadCategoryModel;
+import com.liyunlong.gankio.model.IdleReadingCategoryModel;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ import java.util.List;
  * @author liyunlong
  * @date 2018/7/9 14:21
  */
-public class TimeReadCategoryPresenter extends TimeReadCategoryContract.Presenter<TimeReadCategoryModel> {
+public class IdleReadingCategoryPresenter extends IdleReadingCategoryContract.Presenter<IdleReadingCategoryModel> {
 
     @Override
-    public void getTimeReadCategory() {
-        subscribe(getModel().getTimeReadCategory(), new HttpObserver<BaseGank<List<CategoryEntity>>>(getContext()) {
+    public void getIdleReadingCategory() {
+        subscribe(getModel().getIdleReadingCategory(), new HttpObserver<BaseGank<List<CategoryEntity>>>(getContext()) {
 
             @Override
             public void onError(HttpException exception) {
@@ -28,7 +28,7 @@ public class TimeReadCategoryPresenter extends TimeReadCategoryContract.Presente
 
             @Override
             public void onNext(BaseGank<List<CategoryEntity>> gank) {
-                getView().handleTimeReadCategoryResult(gank);
+                getView().handleIdleReadingCategoryResult(gank);
             }
         });
     }

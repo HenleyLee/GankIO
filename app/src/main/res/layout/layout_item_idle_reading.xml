@@ -13,11 +13,11 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/time_read_icon"
+            android:id="@+id/idle_reading_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:background="@drawable/bg_time_read_icon"
+            android:background="@drawable/bg_idle_reading_icon"
             android:maxHeight="25dp"
             android:maxWidth="25dp"
             android:padding="0.5dp"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/time_read_title"
+            android:id="@+id/idle_reading_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -36,29 +36,28 @@
             android:maxLines="3"
             android:textColor="@color/gank_data_title"
             android:textSize="@dimen/gank_data_title"
-            app:layout_constraintEnd_toStartOf="@+id/time_read_icon"
+            app:layout_constraintEnd_toStartOf="@+id/idle_reading_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Space
-            android:id="@+id/time_read_space"
+            android:id="@+id/idle_reading_space"
             android:layout_width="match_parent"
             android:layout_height="6dp"
-            app:layout_constraintEnd_toStartOf="@+id/time_read_icon"
-            app:layout_constraintStart_toStartOf="@+id/time_read_title"
-            app:layout_constraintTop_toBottomOf="@+id/time_read_title" />
-
+            app:layout_constraintEnd_toStartOf="@+id/idle_reading_icon"
+            app:layout_constraintStart_toStartOf="@+id/idle_reading_title"
+            app:layout_constraintTop_toBottomOf="@+id/idle_reading_title" />
 
         <TextView
-            android:id="@+id/time_read_date"
+            android:id="@+id/idle_reading_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gank_data_desc"
             android:textSize="@dimen/gank_data_desc"
             android:textStyle="normal"
             android:typeface="sans"
-            app:layout_constraintStart_toStartOf="@+id/time_read_space"
-            app:layout_constraintTop_toBottomOf="@+id/time_read_space" />
+            app:layout_constraintStart_toStartOf="@+id/idle_reading_space"
+            app:layout_constraintTop_toBottomOf="@+id/idle_reading_space" />
 
     </android.support.constraint.ConstraintLayout>
 

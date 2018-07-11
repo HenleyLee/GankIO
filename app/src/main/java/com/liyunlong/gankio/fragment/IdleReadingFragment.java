@@ -14,19 +14,19 @@ import android.view.View;
 import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.activity.WebActivity;
-import com.liyunlong.gankio.adapter.TimeReadAdapter;
-import com.liyunlong.gankio.adapter.TimeReadFilterAdapter;
+import com.liyunlong.gankio.adapter.IdleReadingAdapter;
+import com.liyunlong.gankio.adapter.IdleReadingFilterAdapter;
 import com.liyunlong.gankio.base.BaseFragment;
-import com.liyunlong.gankio.contract.TimeReadDetailContract;
+import com.liyunlong.gankio.contract.IdleReadingDetailContract;
 import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.CategoryEntity;
 import com.liyunlong.gankio.entity.SubCategoryEntity;
-import com.liyunlong.gankio.entity.TimeReadEntity;
+import com.liyunlong.gankio.entity.IdleReadingEntity;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.listener.OnItemClickListener;
 import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
-import com.liyunlong.gankio.presenter.TimeReadDetailPresenter;
+import com.liyunlong.gankio.presenter.IdleReadingDetailPresenter;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
 import com.liyunlong.gankio.utils.Utility;
@@ -43,7 +43,7 @@ import java.util.List;
  * @author liyunlong
  * @date 2018/7/9 14:57
  */
-public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, TimeReadDetailContract.View, OnNetWorkChangeListener {
+public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, IdleReadingDetailContract.View, OnNetWorkChangeListener {
 
     private String categoryId;
     private CategoryEntity category;
@@ -52,21 +52,21 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
     private boolean isFirst = true;
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
-    private TimeReadAdapter mAdapter;
-    private TimeReadFilterAdapter mFilterAdapter;
+    private IdleReadingAdapter mAdapter;
+    private IdleReadingFilterAdapter mFilterAdapter;
     private AlertDialog mFilterDialog;
 
-    public static TimeReadFragment newInstance(CategoryEntity category) {
+    public static IdleReadingFragment newInstance(CategoryEntity category) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(GankConfig.GANK_CATEGORY, category);
-        TimeReadFragment fragment = new TimeReadFragment();
+        IdleReadingFragment fragment = new IdleReadingFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     protected int getContentLayoutID() {
-        return R.layout.fragment_time_read;
+        return R.layout.fragment_idle_reading;
     }
 
     @Override
@@ -85,13 +85,13 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
         mRefreshLayout = findViewById(R.id.refresh_layout);
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
         mRefreshLayout.setEnableLoadMore(false);
-        mRecyclerView = findViewById(R.id.time_read_list);
+        mRecyclerView = findViewById(R.id.idle_reading_list);
         mRecyclerView.addItemDecoration(new SpaceDividerItemDecoration(
                 Utility.dp2px(getContext(), 8),
                 Utility.dp2px(getContext(), 8)
         ));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new TimeReadAdapter(null);
+        mAdapter = new IdleReadingAdapter(null);
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         setRefreshLayout(mRefreshLayout);
@@ -133,13 +133,13 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
     @Override
     protected void loadData() {
         super.loadData();
-        getPresenter().getTimeReadData(categoryId, GankConfig.PAGE_SIZE, pageIndex);
+        getPresenter().getIdleReadingData(categoryId, GankConfig.PAGE_SIZE, pageIndex);
     }
 
     @Override
     public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
         int adapterPosition = holder.getAdapterPosition();
-        TimeReadEntity readEntity = mAdapter.getItem(adapterPosition);
+        IdleReadingEntity readEntity = mAdapter.getItem(adapterPosition);
         if (readEntity != null) {
             WebActivity.startActivity(getContext(), readEntity.getTitle(), readEntity.getUrl());
         }
@@ -154,7 +154,7 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         if (categories == null || categories.isEmpty()) {
-            getPresenter().getTimeReadSubCategory(category.getCategoryEN());
+            getPresenter().getIdleReadingSubCategory(category.getCategoryEN());
         } else {
             pageIndex = GankConfig.PAGE_INDEX;
             loadData();
@@ -179,7 +179,7 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
     }
 
     @Override
-    public void handleTimeReadSubCategoryResult(BaseGank<List<SubCategoryEntity>> gank) {
+    public void handleIdleReadingSubCategoryResult(BaseGank<List<SubCategoryEntity>> gank) {
         if (gank == null) {
             stopRefreshingOrLoading();
             updateEmptyViewVisibility();
@@ -197,7 +197,7 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
     }
 
     @Override
-    public void handleTimeReadDataResult(BaseGank<List<TimeReadEntity>> gank) {
+    public void handleIdleReadingDataResult(BaseGank<List<IdleReadingEntity>> gank) {
         stopRefreshingOrLoading();
         if (gank == null) {
             mRefreshLayout.setEnableLoadMore(false);
@@ -205,7 +205,7 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
             updateEmptyViewVisibility();
             return;
         }
-        List<TimeReadEntity> results = gank.getResults();
+        List<IdleReadingEntity> results = gank.getResults();
         if (pageIndex == GankConfig.PAGE_INDEX) {
             mAdapter.refresh(results);
         } else {
@@ -219,7 +219,7 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
 
     public void showFilterDialog() {
         if (categories == null || categories.isEmpty()) {
-            Snackbar.make(mRefreshLayout, R.string.time_read_category_empty, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mRefreshLayout, R.string.idle_reading_category_empty, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (mFilterDialog == null) {
@@ -240,7 +240,7 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
             recyclerView.setHasFixedSize(true);
             recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            mFilterAdapter = new TimeReadFilterAdapter(categories);
+            mFilterAdapter = new IdleReadingFilterAdapter(categories);
             mFilterAdapter.setSelectedCategory(categoryId);
             mFilterAdapter.setOnItemClickListener(new OnItemClickListener() {
                 private int tempPosition;

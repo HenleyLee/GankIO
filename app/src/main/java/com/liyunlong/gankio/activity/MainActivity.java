@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected boolean onMenuItemSelected(MenuItem menuItem, int itemId) {
         if (itemId == R.id.main_read) {
-            TimeReadActivity.startActivity(getContext());
+            IdleReadingActivity.startActivity(getContext());
         } else if (itemId == R.id.main_history) {
             GankHistoryActivity.startActivity(getContext());
         } else if (itemId == R.id.main_gankio) {

@@ -45,7 +45,7 @@
 
     <string name="menu_read_filter">筛选</string>
 
-    <string name="time_read_category_empty">没有加载到分类数据</string>
+    <string name="idle_reading_category_empty">没有加载到分类数据</string>
 
     <string name="status_empty">客官，暂无数据哟~</string>
     <string name="status_network_poor">网络环境不佳，请稍后重试~</string>

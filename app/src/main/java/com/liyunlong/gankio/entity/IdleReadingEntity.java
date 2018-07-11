@@ -10,7 +10,7 @@ import java.util.Date;
  * @author liyunlong
  * @date 2018/7/9 15:02
  */
-public class TimeReadEntity {
+public class IdleReadingEntity {
 
     @SerializedName("_id")
     private String id;                  // 文章ID

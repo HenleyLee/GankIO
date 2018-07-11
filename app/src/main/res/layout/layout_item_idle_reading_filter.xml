@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:background="@drawable/bg_time_read_icon"
+        android:background="@drawable/bg_idle_reading_icon"
         android:maxHeight="30dp"
         android:maxWidth="30dp"
         android:padding="0.5dp"

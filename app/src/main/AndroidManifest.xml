@@ -42,7 +42,7 @@
             android:name=".activity.PictureActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.TimeReadActivity"
+            android:name=".activity.IdleReadingActivity"
             android:screenOrientation="portrait" />
 
         <!-- *************************FileProvider begin************************* -->

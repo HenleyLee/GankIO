@@ -5,7 +5,7 @@ import com.liyunlong.gankio.entity.CategoryEntity;
 import com.liyunlong.gankio.entity.GankDaily;
 import com.liyunlong.gankio.entity.GankEntity;
 import com.liyunlong.gankio.entity.SubCategoryEntity;
-import com.liyunlong.gankio.entity.TimeReadEntity;
+import com.liyunlong.gankio.entity.IdleReadingEntity;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public interface GankApiService {
      * @see CategoryEntity
      */
     @GET("xiandu/categories")
-    Observable<BaseGank<List<CategoryEntity>>> getTimeReadCategory();
+    Observable<BaseGank<List<CategoryEntity>>> getIdleReadingCategory();
 
     /**
      * 获取闲读的子分类
@@ -64,7 +64,7 @@ public interface GankApiService {
      * @see SubCategoryEntity
      */
     @GET("xiandu/category/{category}")
-    Observable<BaseGank<List<SubCategoryEntity>>> getTimeReadSubCategory(@Path("category") String category);
+    Observable<BaseGank<List<SubCategoryEntity>>> getIdleReadingSubCategory(@Path("category") String category);
 
     /**
      * 获取闲读数据
@@ -72,9 +72,9 @@ public interface GankApiService {
      * @param category 子分类ID
      * @param size     请求个数： 数字，大于0
      * @param page     第几页：数字，大于0
-     * @see TimeReadEntity
+     * @see IdleReadingEntity
      */
     @GET("xiandu/data/id/{category}/count/{size}/page/{page}")
-    Observable<BaseGank<List<TimeReadEntity>>> getTimeReadData(@Path("category") String category, @Path("size") int size, @Path("page") int page);
+    Observable<BaseGank<List<IdleReadingEntity>>> getIdleReadingData(@Path("category") String category, @Path("size") int size, @Path("page") int page);
 
 }

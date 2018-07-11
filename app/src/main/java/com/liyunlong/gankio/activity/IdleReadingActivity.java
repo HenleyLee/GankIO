@@ -14,14 +14,14 @@ import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.adapter.TabPagerAdapter;
 import com.liyunlong.gankio.base.BaseActivity;
-import com.liyunlong.gankio.contract.TimeReadCategoryContract;
+import com.liyunlong.gankio.contract.IdleReadingCategoryContract;
 import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.CategoryEntity;
-import com.liyunlong.gankio.fragment.TimeReadFragment;
+import com.liyunlong.gankio.fragment.IdleReadingFragment;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
-import com.liyunlong.gankio.presenter.TimeReadCategoryPresenter;
+import com.liyunlong.gankio.presenter.IdleReadingCategoryPresenter;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,7 +35,7 @@ import java.util.List;
  * @author liyunlong
  * @date 2018/7/9 14:07
  */
-public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> implements TimeReadCategoryContract.View, OnNetWorkChangeListener {
+public class IdleReadingActivity extends BaseActivity<IdleReadingCategoryPresenter> implements IdleReadingCategoryContract.View, OnNetWorkChangeListener {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -43,18 +43,18 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
     private int mCurrentPosition;
     private MenuItem menuFilter;
     private FloatingActionButton fabSubmit;
-    private List<TimeReadFragment> mFragments;
+    private List<IdleReadingFragment> mFragments;
     private boolean hasLoadCategory;
 
     public static void startActivity(Context context) {
-        Intent intent = new Intent(context, TimeReadActivity.class);
+        Intent intent = new Intent(context, IdleReadingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.activity_time_read;
+        return R.layout.activity_idle_reading;
     }
 
     @Override
@@ -78,9 +78,9 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableLoadMore(false);
         setRefreshLayout(refreshLayout);
-        content = findViewById(R.id.time_read_content);
-        mTabLayout = findViewById(R.id.time_read_tab_layout);
-        mViewPager = findViewById(R.id.time_read_view_pager);
+        content = findViewById(R.id.idle_reading_content);
+        mTabLayout = findViewById(R.id.idle_reading_tab_layout);
+        mViewPager = findViewById(R.id.idle_reading_view_pager);
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -89,7 +89,7 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
             }
         });
 
-        fabSubmit = findViewById(R.id.time_read_fab);
+        fabSubmit = findViewById(R.id.idle_reading_fab);
         fabSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +108,7 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
     protected void loadData() {
         super.loadData();
         if (NetworkHelper.isNetworkAvailable(getContext())) {
-            getPresenter().getTimeReadCategory();
+            getPresenter().getIdleReadingCategory();
             hasLoadCategory = true;
         } else {
             showNetworkErrorLayout();
@@ -136,7 +136,7 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
     public void onNetWorkChange(boolean isAvailable, NetworkType oldType, NetworkType newType) {
         if (isAvailable && !hasLoadCategory) {
             restoreLayout();
-            getPresenter().getTimeReadCategory();
+            getPresenter().getIdleReadingCategory();
             hasLoadCategory = true;
         }
         if (fabSubmit != null) {
@@ -157,7 +157,7 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
     }
 
     @Override
-    public void handleTimeReadCategoryResult(BaseGank<List<CategoryEntity>> gank) {
+    public void handleIdleReadingCategoryResult(BaseGank<List<CategoryEntity>> gank) {
         if (gank == null) {
             showEmptyLayout();
             return;
@@ -176,7 +176,7 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
         for (CategoryEntity category : categories) {
             String categoryName = category.getCategoryCN();
             titles.add(categoryName);
-            mFragments.add(TimeReadFragment.newInstance(category));
+            mFragments.add(IdleReadingFragment.newInstance(category));
             mTabLayout.addTab(mTabLayout.newTab().setText(categoryName));
         }
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE); // 设置TabLayout模式

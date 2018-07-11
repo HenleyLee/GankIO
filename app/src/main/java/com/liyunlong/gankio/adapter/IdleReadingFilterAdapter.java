@@ -20,11 +20,11 @@ import java.util.Collection;
  * @author liyunlong
  * @date 2018/7/9 17:05
  */
-public class TimeReadFilterAdapter extends CommonAdapter<SubCategoryEntity> {
+public class IdleReadingFilterAdapter extends CommonAdapter<SubCategoryEntity> {
 
     private String selectedCategory;
 
-    public TimeReadFilterAdapter(Collection<SubCategoryEntity> datas) {
+    public IdleReadingFilterAdapter(Collection<SubCategoryEntity> datas) {
         super(datas);
     }
 
@@ -38,7 +38,7 @@ public class TimeReadFilterAdapter extends CommonAdapter<SubCategoryEntity> {
 
     @Override
     public int getItemLayoutID() {
-        return R.layout.layout_item_time_read_filter;
+        return R.layout.layout_item_idle_reading_filter;
     }
 
     @Override

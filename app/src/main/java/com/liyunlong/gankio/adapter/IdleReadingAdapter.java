@@ -8,7 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.liyunlong.gankio.R;
-import com.liyunlong.gankio.entity.TimeReadEntity;
+import com.liyunlong.gankio.entity.IdleReadingEntity;
 import com.liyunlong.gankio.utils.DateHelper;
 import com.liyunlong.gankio.utils.ViewHolder;
 
@@ -20,28 +20,28 @@ import java.util.Collection;
  * @author liyunlong
  * @date 2018/7/9 15:18
  */
-public class TimeReadAdapter extends CommonAdapter<TimeReadEntity> {
+public class IdleReadingAdapter extends CommonAdapter<IdleReadingEntity> {
 
-    public TimeReadAdapter(Collection<TimeReadEntity> datas) {
+    public IdleReadingAdapter(Collection<IdleReadingEntity> datas) {
         super(datas);
     }
 
     @Override
     public int getItemLayoutID() {
-        return R.layout.layout_item_time_read;
+        return R.layout.layout_item_idle_reading;
     }
 
     @Override
-    public void convert(ViewHolder holder, TimeReadEntity data, int position) {
+    public void convert(ViewHolder holder, IdleReadingEntity data, int position) {
         if (data != null) {
-            holder.setText(R.id.time_read_title, data.getTitle());
-            holder.setText(R.id.time_read_date, DateHelper.getTimestampString(data.getPublishedTime()));
+            holder.setText(R.id.idle_reading_title, data.getTitle());
+            holder.setText(R.id.idle_reading_date, DateHelper.getTimestampString(data.getPublishedTime()));
             String iconUrl = null;
-            TimeReadEntity.Site site = data.getSite();
+            IdleReadingEntity.Site site = data.getSite();
             if (site != null) {
                 iconUrl = site.getIcon();
             }
-            final ImageView ivIcon = holder.getView(R.id.time_read_icon);
+            final ImageView ivIcon = holder.getView(R.id.idle_reading_icon);
             Glide.with(getContext())
                     .asBitmap()
                     .load(iconUrl)

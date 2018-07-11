@@ -8,13 +8,13 @@
     app:srlEnableRefresh="false">
 
     <FrameLayout
-        android:id="@+id/time_read_content"
+        android:id="@+id/idle_reading_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/time_read_tab_layout"
+            android:id="@+id/idle_reading_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tabLayoutHeight"
             android:background="@android:color/white"
@@ -24,7 +24,7 @@
             app:tabTextColor="@color/tabTextColorNormal" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/time_read_view_pager"
+            android:id="@+id/idle_reading_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/tabLayoutHeight"
@@ -39,7 +39,7 @@
             android:src="@drawable/tab_shadow" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/time_read_fab"
+            android:id="@+id/idle_reading_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

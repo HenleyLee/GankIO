@@ -1,6 +1,6 @@
 package com.liyunlong.gankio.model;
 
-import com.liyunlong.gankio.contract.TimeReadCategoryContract;
+import com.liyunlong.gankio.contract.IdleReadingCategoryContract;
 import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.CategoryEntity;
 import com.liyunlong.gankio.http.HttpManager;
@@ -15,13 +15,13 @@ import io.reactivex.Observable;
  * @author liyunlong
  * @date 2018/7/9 14:21
  */
-public class TimeReadCategoryModel implements TimeReadCategoryContract.Model {
+public class IdleReadingCategoryModel implements IdleReadingCategoryContract.Model {
 
     @Override
-    public Observable<BaseGank<List<CategoryEntity>>> getTimeReadCategory() {
+    public Observable<BaseGank<List<CategoryEntity>>> getIdleReadingCategory() {
         return HttpManager.getInstance()
                 .getGankApiService()
-                .getTimeReadCategory();
+                .getIdleReadingCategory();
     }
 
 }
