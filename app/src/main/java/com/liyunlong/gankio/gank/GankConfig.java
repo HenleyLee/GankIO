@@ -33,6 +33,8 @@ public class GankConfig {
     public static final String DISPLAY_DATE_FORMAT = "yyyy/MM/dd";
     public static final String WELFARE_DATE_FORMAT = "yyyy-MM-dd";
 
+    public static final int EXIT_WAIT_TIME = 2000;
+
     public static final int PAGE_INDEX = 1;
     public static final int PAGE_SIZE = 20;
 

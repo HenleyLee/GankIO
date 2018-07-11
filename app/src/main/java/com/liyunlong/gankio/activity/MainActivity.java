@@ -3,6 +3,7 @@ package com.liyunlong.gankio.activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private DrawerLayout drawer;
     private FloatingActionButton fabSubscribe;
     private HashMap<GankType, GankDataFragment> fragments = new HashMap<>();
+    private long mExitStartTime = 0;
 
     @Override
     protected int getContentLayoutId() {
@@ -117,7 +119,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackClick();
+            if (System.currentTimeMillis() - mExitStartTime > GankConfig.EXIT_WAIT_TIME) {
+                mExitStartTime = System.currentTimeMillis();
+                Snackbar.make(drawer, R.string.exit_app_hint, Snackbar.LENGTH_SHORT).show();
+            } else {
+                super.onBackClick();
+            }
         }
     }
 

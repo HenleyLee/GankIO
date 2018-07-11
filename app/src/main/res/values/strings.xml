@@ -51,4 +51,7 @@
     <string name="status_network_poor">网络环境不佳，请稍后重试~</string>
     <string name="status_network_error">当前网络不可用，请检查网络连接~</string>
 
+    <string name="exit_app_hint">再按一次退出程序</string>
+
+
 </resources>
