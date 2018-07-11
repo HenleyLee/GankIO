@@ -74,15 +74,16 @@ public class GankApplication extends Application {
 
     private static Application sInstance;
 
+    public static Application getApplication() {
+        return sInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         sInstance = this;
         initLogger();
-    }
-
-    public static Application getApplication() {
-        return sInstance;
+        registerReceiver();
     }
 
     private void initLogger() {
@@ -98,6 +99,10 @@ public class GankApplication extends Application {
                 return BuildConfig.DEBUG;
             }
         });
+    }
+
+    private void registerReceiver() {
+        NetworkChangeReceiver.registerReceiver(this);
     }
 
 }

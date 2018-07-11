@@ -3,6 +3,7 @@ package com.liyunlong.gankio;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -14,19 +15,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 网络状态变化广播接收器
+ * 网络状态变化广播接收器(只需注册一次即可)
  *
  * @author liyunlong
  * @date 2018/7/11 13:48
  */
 public class NetworkChangeReceiver extends BroadcastReceiver {
 
-    public NetworkType oldType = NetworkType.TYPE_NONE;
+    private boolean hasRegisterReceiver;
+    private NetworkType oldType = NetworkType.TYPE_NONE;
     private ConnectivityManager mConnectivityManager;
-    public List<OnNetWorkChangeListener> mNetWorkChangeListeners;
+    private List<OnNetWorkChangeListener> mNetWorkChangeListeners;
 
     private static class NetworkChangeReceiverHolder {
         private static final NetworkChangeReceiver INSTANCE = new NetworkChangeReceiver();
+    }
+
+    public static void registerReceiver(Context context) {
+        NetworkChangeReceiver receiver = NetworkChangeReceiver.getInstance();
+        if (!receiver.hasRegisterReceiver) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            context.getApplicationContext().registerReceiver(receiver, intentFilter);
+            receiver.hasRegisterReceiver = true;
+        }
+    }
+
+    public static void unregisterReceiver(Context context) {
+        NetworkChangeReceiver receiver = NetworkChangeReceiver.getInstance();
+        if (receiver.hasRegisterReceiver) {
+            context.getApplicationContext().unregisterReceiver(receiver);
+            receiver.hasRegisterReceiver = false;
+        }
     }
 
     public static NetworkChangeReceiver getInstance() {
@@ -62,6 +82,13 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             listener.onNetWorkChange(isAvailable, oldType, networkType);
         }
         this.oldType = networkType;
+    }
+
+    /**
+     * 判断广播接收器是否已经注册
+     */
+    public boolean hasRegisterReceiver() {
+        return hasRegisterReceiver;
     }
 
     /**
