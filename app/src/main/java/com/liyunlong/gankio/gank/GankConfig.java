@@ -20,6 +20,9 @@ public class GankConfig {
     public static final String GANK_HOME_NAME = "干货集中营";
     public static final String GANK_HOME_URL = "https://gank.io/";
 
+    public static final String GANK_SUBSCRIBE_NAME = "订阅干货集中营";
+    public static final String GANK_SUBSCRIBE_URL = "https://gank.io/subscribe";
+
     public static final String GIHUB_TRENDING_NAME = "Trending Java repositories on GitHub today";
     public static final String GIHUB_TRENDING_URL = "https://github.com/trending/java?since=daily";
 

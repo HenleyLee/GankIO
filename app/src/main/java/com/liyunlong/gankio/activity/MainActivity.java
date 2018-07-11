@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.base.BaseActivity;
@@ -56,6 +57,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.navigation_all);
         updateCurrentFragment(GankType.All);
+
+        findViewById(R.id.main_fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebActivity.startActivity(getContext(), GankConfig.GANK_SUBSCRIBE_NAME, GankConfig.GANK_SUBSCRIBE_URL);
+            }
+        });
     }
 
     @Override
