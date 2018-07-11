@@ -26,6 +26,7 @@ public class StatusLayoutManager {
     private final View netWorkErrorLayout;
     private final View netWorkPoorLayout;
     private View contentLayout;
+    private View currentLayout;
     private OnRetryActionListener onRetryActionListener;
 
     public static StatusLayoutManager create(Context context) {
@@ -70,11 +71,20 @@ public class StatusLayoutManager {
         return contentLayout;
     }
 
+    public View getCurrentLayout() {
+        return currentLayout;
+    }
+
+    public void setCurrentLayout(View currentLayout) {
+        this.currentLayout = currentLayout;
+    }
+
     /**
      * 设置内容布局
      */
     public StatusLayoutManager setContentLayout(View contentLayout) {
         this.contentLayout = contentLayout;
+        this.currentLayout = contentLayout;
         return this;
     }
 

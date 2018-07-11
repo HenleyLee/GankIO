@@ -1,6 +1,10 @@
 package com.liyunlong.gankio.mvp;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.statuslayout.StatusLayoutManager;
@@ -48,50 +52,62 @@ public class MVPViewHelper implements IMVPViewHelper {
     @Override
     public void showContentLayout() {
         if (statusLayoutManager != null && refreshLayout != null) {
-            refreshLayout.setRefreshContent(statusLayoutManager.getContentLayout());
+            setRefreshContent(statusLayoutManager.getContentLayout());
         }
     }
 
     @Override
     public void showEmptyLayout() {
         if (statusLayoutManager != null && refreshLayout != null) {
-            refreshLayout.setRefreshContent(statusLayoutManager.getEmptyLayout());
+            setRefreshContent(statusLayoutManager.getEmptyLayout());
         }
     }
 
     @Override
     public void showLoadingLayout() {
         if (statusLayoutManager != null && refreshLayout != null) {
-            refreshLayout.setRefreshContent(statusLayoutManager.getLoadingLayout());
+            setRefreshContent(statusLayoutManager.getLoadingLayout());
         }
     }
 
     @Override
     public void showErrorLayout() {
         if (statusLayoutManager != null && refreshLayout != null) {
-            refreshLayout.setRefreshContent(statusLayoutManager.getErrorLayout());
+            setRefreshContent(statusLayoutManager.getErrorLayout());
         }
     }
 
     @Override
     public void showNetworkErrorLayout() {
         if (statusLayoutManager != null && refreshLayout != null) {
-            refreshLayout.setRefreshContent(statusLayoutManager.getNetWorkErrorLayout());
+            setRefreshContent(statusLayoutManager.getNetWorkErrorLayout());
         }
     }
 
     @Override
     public void showNetworkPoorLayout() {
         if (statusLayoutManager != null && refreshLayout != null) {
-            refreshLayout.setRefreshContent(statusLayoutManager.getNetWorkPoorLayout());
+            setRefreshContent(statusLayoutManager.getNetWorkPoorLayout());
         }
     }
 
     @Override
     public void restoreLayout() {
         if (statusLayoutManager != null && refreshLayout != null) {
-            refreshLayout.setRefreshContent(statusLayoutManager.getContentLayout());
+            setRefreshContent(statusLayoutManager.getContentLayout());
         }
+    }
+
+    private void setRefreshContent(@NonNull View content) {
+        if (content == statusLayoutManager.getCurrentLayout()) {
+            return;
+        }
+        ViewParent parent = content.getParent();
+        if (parent != null && parent instanceof ViewGroup) {
+            ((ViewGroup) parent).removeView(content);
+        }
+        refreshLayout.setRefreshContent(content);
+        statusLayoutManager.setCurrentLayout(content);
     }
 
 }
