@@ -54,7 +54,7 @@ public class GankHistoryActivity extends BaseActivity<GankHistoryPresenter> impl
 
     @Override
     protected String title() {
-        return "每日力推";
+        return getString(R.string.page_title_hsitory);
     }
 
     @Override

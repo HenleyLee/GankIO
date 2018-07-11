@@ -64,7 +64,7 @@ public class IdleReadingActivity extends BaseActivity<IdleReadingCategoryPresent
 
     @Override
     protected String title() {
-        return "闲读";
+        return getString(R.string.page_title_reading);
     }
 
     @Override
