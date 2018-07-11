@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,6 +20,7 @@ import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.presenter.TimeReadCategoryPresenter;
 import com.liyunlong.gankio.utils.NetworkHelper;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
     private FrameLayout content;
     private int mCurrentPosition;
     private List<TimeReadFragment> mFragments;
+    private MenuItem menuFilter;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, TimeReadActivity.class);
@@ -65,6 +68,10 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
 
     @Override
     protected void initViews() {
+        SmartRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableLoadMore(false);
+        setRefreshLayout(refreshLayout);
         content = findViewById(R.id.time_read_content);
         mTabLayout = findViewById(R.id.time_read_tab_layout);
         mViewPager = findViewById(R.id.time_read_view_pager);
@@ -92,6 +99,15 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
         } else {
             showNetworkErrorLayout();
         }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menuFilter = menu.findItem(R.id.read_filter);
+        if (menuFilter != null) {
+            menuFilter.setVisible(NetworkHelper.isNetworkAvailable(getContext()));
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
