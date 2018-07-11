@@ -53,6 +53,7 @@ public class PictureActivity extends BaseActivity {
     private String mUrl;
     private String mTitle;
     private PhotoView ivPicture;
+    private SmartRefreshLayout mRefreshLayout;
 
     public static void startActivity(Activity activity, String title, String url, View sharedElement) {
         Intent intent = new Intent(activity, PictureActivity.class);
@@ -97,10 +98,10 @@ public class PictureActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        SmartRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
-        refreshLayout.setEnableRefresh(false);
-        refreshLayout.setEnableLoadMore(false);
-        setRefreshLayout(refreshLayout);
+        mRefreshLayout = findViewById(R.id.refresh_layout);
+        mRefreshLayout.setEnableRefresh(false);
+        mRefreshLayout.setEnableLoadMore(false);
+        setRefreshLayout(mRefreshLayout);
         ivPicture = findViewById(R.id.iv_picture);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ivPicture.setTransitionName(GankConfig.IMAGE_TRANSITION_NAME);
@@ -164,7 +165,7 @@ public class PictureActivity extends BaseActivity {
                                 sharePicture();
                             }
                         } else if (permission.shouldShowRequestPermissionRationale) {// 用户拒绝了该权限，没有选中『不再询问』
-                            Snackbar.make(ivPicture, R.string.permission_denied, Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(mRefreshLayout, R.string.permission_denied, Snackbar.LENGTH_SHORT).show();
                         } else {// 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
                             new AlertDialog.Builder(getContext())
                                     .setTitle(R.string.permission_title)
@@ -190,12 +191,12 @@ public class PictureActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        Snackbar.make(ivPicture, R.string.download_failed, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(mRefreshLayout, R.string.download_failed, Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onNext(File file) {
-                        Snackbar.make(ivPicture, String.format(Locale.getDefault(), getString(R.string.picture_save_to), file.getParentFile().getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(mRefreshLayout, String.format(Locale.getDefault(), getString(R.string.picture_save_to), file.getParentFile().getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -207,7 +208,7 @@ public class PictureActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        Snackbar.make(ivPicture, R.string.download_failed, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(mRefreshLayout, R.string.download_failed, Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override

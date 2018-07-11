@@ -18,13 +18,17 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
+import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.base.BaseActivity;
 import com.liyunlong.gankio.gank.GankConfig;
+import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.mvp.MVPViewHelper;
 import com.liyunlong.gankio.utils.NetworkHelper;
+import com.liyunlong.gankio.utils.NetworkType;
 import com.liyunlong.gankio.utils.ShareHelper;
 import com.liyunlong.gankio.utils.Utility;
 import com.liyunlong.gankio.widget.WebViewHelper;
@@ -37,13 +41,15 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
  * @author liyunlong
  * @date 2018/7/4 13:05
  */
-public class WebActivity extends BaseActivity {
+public class WebActivity extends BaseActivity implements OnNetWorkChangeListener {
 
     private String mUrl;
     private String mTitle;
-    private WebView mWebView;
     private boolean hasLoad;
+    private WebView mWebView;
+    private FrameLayout content;
     private MenuItem menuSwitchScreenMode;
+    private SmartRefreshLayout mRefreshLayout;
 
     public static void startActivity(Context context, String title, String url) {
         Intent intent = new Intent(context, WebActivity.class);
@@ -75,7 +81,7 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected View getContentView() {
-        return mWebView;
+        return content;
     }
 
     @Override
@@ -88,11 +94,12 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        SmartRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
-        refreshLayout.setEnableRefresh(false);
-        refreshLayout.setEnableLoadMore(false);
-        setRefreshLayout(refreshLayout);
+        mRefreshLayout = findViewById(R.id.refresh_layout);
+        mRefreshLayout.setEnableRefresh(false);
+        mRefreshLayout.setEnableLoadMore(false);
+        setRefreshLayout(mRefreshLayout);
         ProgressBar progressBar = findViewById(R.id.web_progressbar);
+        content = findViewById(R.id.web_content);
         mWebView = findViewById(R.id.web_webview);
         WebViewHelper.initWebViewSettings(mWebView);
         mWebView.setWebViewClient(new CustomWebViewClient(getMvpViewHelper()));
@@ -104,6 +111,12 @@ public class WebActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void initComponents() {
+        super.initComponents();
+        NetworkChangeReceiver.getInstance().addOnNetWorkChangeListener(this);
     }
 
     @Override
@@ -156,7 +169,7 @@ public class WebActivity extends BaseActivity {
             mWebView.reload();
         } else if (itemId == R.id.web_copy) {
             if (Utility.copy(getContext(), mUrl)) {
-                Snackbar.make(mWebView, R.string.copy_success, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mRefreshLayout, R.string.copy_success, Snackbar.LENGTH_SHORT).show();
             }
         } else if (itemId == R.id.menu_share) {
             ShareHelper.shareText(getContext(), mUrl);
@@ -169,10 +182,20 @@ public class WebActivity extends BaseActivity {
     }
 
     @Override
+    public void onNetWorkChange(boolean isAvailable, NetworkType oldType, NetworkType newType) {
+        if (isAvailable && !hasLoad) {
+            restoreLayout();
+            mWebView.loadUrl(mUrl);
+            hasLoad = true;
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         if (mWebView != null) {
             WebViewHelper.destroyWebView(mWebView);
         }
+        NetworkChangeReceiver.getInstance().removeOnNetWorkChangeListener(this);
         super.onDestroy();
     }
 
@@ -216,7 +239,7 @@ public class WebActivity extends BaseActivity {
             super.onProgressChanged(view, newProgress);
             if (progressBar != null) {
                 progressBar.setProgress(newProgress);
-                if (newProgress == progressBar.getMax()) {
+                if (newProgress >= progressBar.getMax()) {
                     progressBar.setVisibility(View.GONE);
                 } else {
                     if (progressBar.getVisibility() == View.GONE) {

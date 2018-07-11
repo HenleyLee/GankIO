@@ -2,6 +2,7 @@ package com.liyunlong.gankio.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.adapter.TabPagerAdapter;
 import com.liyunlong.gankio.base.BaseActivity;
@@ -18,8 +20,10 @@ import com.liyunlong.gankio.entity.CategoryEntity;
 import com.liyunlong.gankio.fragment.TimeReadFragment;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
+import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.presenter.TimeReadCategoryPresenter;
 import com.liyunlong.gankio.utils.NetworkHelper;
+import com.liyunlong.gankio.utils.NetworkType;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -31,14 +35,16 @@ import java.util.List;
  * @author liyunlong
  * @date 2018/7/9 14:07
  */
-public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> implements TimeReadCategoryContract.View {
+public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> implements TimeReadCategoryContract.View, OnNetWorkChangeListener {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private FrameLayout content;
     private int mCurrentPosition;
-    private List<TimeReadFragment> mFragments;
     private MenuItem menuFilter;
+    private FloatingActionButton fabSubmit;
+    private List<TimeReadFragment> mFragments;
+    private boolean hasLoadCategory;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, TimeReadActivity.class);
@@ -83,7 +89,8 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
             }
         });
 
-        findViewById(R.id.time_read_fab).setOnClickListener(new View.OnClickListener() {
+        fabSubmit = findViewById(R.id.time_read_fab);
+        fabSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WebActivity.startActivity(getContext(), GankConfig.GANK_SUBMIT_READ_NAME, GankConfig.GANK_SUBMIT_READ_URL);
@@ -92,10 +99,17 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
     }
 
     @Override
+    protected void initComponents() {
+        super.initComponents();
+        NetworkChangeReceiver.getInstance().addOnNetWorkChangeListener(this);
+    }
+
+    @Override
     protected void loadData() {
         super.loadData();
         if (NetworkHelper.isNetworkAvailable(getContext())) {
             getPresenter().getTimeReadCategory();
+            hasLoadCategory = true;
         } else {
             showNetworkErrorLayout();
         }
@@ -105,7 +119,7 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
     public boolean onPrepareOptionsMenu(Menu menu) {
         menuFilter = menu.findItem(R.id.read_filter);
         if (menuFilter != null) {
-            menuFilter.setVisible(NetworkHelper.isNetworkAvailable(getContext()));
+            menuFilter.setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -116,6 +130,18 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
             mFragments.get(mCurrentPosition).showFilterDialog();
         }
         return super.onMenuItemSelected(menuItem, itemId);
+    }
+
+    @Override
+    public void onNetWorkChange(boolean isAvailable, NetworkType oldType, NetworkType newType) {
+        if (isAvailable && !hasLoadCategory) {
+            restoreLayout();
+            getPresenter().getTimeReadCategory();
+            hasLoadCategory = true;
+        }
+        if (fabSubmit != null) {
+            fabSubmit.setVisibility(isAvailable ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override
@@ -141,6 +167,9 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
             showEmptyLayout();
             return;
         }
+        if (menuFilter != null) {
+            menuFilter.setVisible(true);
+        }
         int size = categories.size();
         mFragments = new ArrayList<>(size);
         List<String> titles = new ArrayList<>(size);
@@ -157,6 +186,12 @@ public class TimeReadActivity extends BaseActivity<TimeReadCategoryPresenter> im
 
         content.setVisibility(View.VISIBLE);
         restoreLayout();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetworkChangeReceiver.getInstance().removeOnNetWorkChangeListener(this);
     }
 
 }

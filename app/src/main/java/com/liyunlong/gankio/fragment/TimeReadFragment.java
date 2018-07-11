@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.activity.WebActivity;
 import com.liyunlong.gankio.adapter.TimeReadAdapter;
@@ -24,8 +25,10 @@ import com.liyunlong.gankio.entity.TimeReadEntity;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.listener.OnItemClickListener;
+import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.presenter.TimeReadDetailPresenter;
 import com.liyunlong.gankio.utils.NetworkHelper;
+import com.liyunlong.gankio.utils.NetworkType;
 import com.liyunlong.gankio.utils.Utility;
 import com.liyunlong.gankio.widget.SpaceDividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -40,7 +43,7 @@ import java.util.List;
  * @author liyunlong
  * @date 2018/7/9 14:57
  */
-public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, TimeReadDetailContract.View {
+public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, TimeReadDetailContract.View, OnNetWorkChangeListener {
 
     private String categoryId;
     private CategoryEntity category;
@@ -95,6 +98,12 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
     }
 
     @Override
+    protected void initComponents() {
+        super.initComponents();
+        NetworkChangeReceiver.getInstance().addOnNetWorkChangeListener(this);
+    }
+
+    @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
         if (isVisible && isFirst) {
@@ -109,6 +118,15 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
             } else {
                 showNetworkErrorLayout();
             }
+        }
+    }
+
+    @Override
+    public void onNetWorkChange(boolean isAvailable, NetworkType oldType, NetworkType newType) {
+        if (isFragmentVisible() && category != null && isAvailable && isFirst) {
+            restoreLayout();
+            mRefreshLayout.autoRefresh();
+            isFirst = false;
         }
     }
 
@@ -201,7 +219,7 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
 
     public void showFilterDialog() {
         if (categories == null || categories.isEmpty()) {
-            Snackbar.make(mRecyclerView, R.string.time_read_category_empty, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mRefreshLayout, R.string.time_read_category_empty, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (mFilterDialog == null) {
@@ -262,5 +280,10 @@ public class TimeReadFragment extends BaseFragment<TimeReadDetailPresenter> impl
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        NetworkChangeReceiver.getInstance().removeOnNetWorkChangeListener(this);
+    }
 
 }

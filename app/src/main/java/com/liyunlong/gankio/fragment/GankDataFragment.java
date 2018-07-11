@@ -1,5 +1,6 @@
 package com.liyunlong.gankio.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.activity.PictureActivity;
 import com.liyunlong.gankio.activity.WebActivity;
@@ -23,9 +25,11 @@ import com.liyunlong.gankio.entity.GankType;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.listener.OnItemClickListener;
+import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.presenter.GankDataPresenter;
 import com.liyunlong.gankio.utils.DateHelper;
 import com.liyunlong.gankio.utils.NetworkHelper;
+import com.liyunlong.gankio.utils.NetworkType;
 import com.liyunlong.gankio.utils.Utility;
 import com.liyunlong.gankio.widget.SpaceDividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -40,7 +44,7 @@ import java.util.List;
  * @author liyunlong
  * @date 2018/7/3 16:30
  */
-public class GankDataFragment extends BaseFragment<GankDataPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, GankDataContract.View {
+public class GankDataFragment extends BaseFragment<GankDataPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, GankDataContract.View, OnNetWorkChangeListener {
 
     private int pageIndex = GankConfig.PAGE_INDEX;
     private GankType gankType;
@@ -103,15 +107,43 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        onFragmentVisibleChange(isViewCreated() && isResumed());
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        NetworkChangeReceiver.getInstance().addOnNetWorkChangeListener(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        NetworkChangeReceiver.getInstance().removeOnNetWorkChangeListener(this);
+    }
+
+    @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
         if (isVisible && isFirst) {
             if (NetworkHelper.isNetworkAvailable(getContext())) {
+                restoreLayout();
                 mRefreshLayout.autoRefresh();
                 isFirst = false;
             } else {
                 showNetworkErrorLayout();
             }
+        }
+    }
+
+    @Override
+    public void onNetWorkChange(boolean isAvailable, NetworkType oldType, NetworkType newType) {
+        if (isFragmentVisible() && isAvailable && isFirst) {
+            restoreLayout();
+            mRefreshLayout.autoRefresh();
+            isFirst = false;
         }
     }
 
@@ -201,5 +233,4 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
             restoreLayout();
         }
     }
-
 }
