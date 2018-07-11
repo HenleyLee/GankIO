@@ -8,6 +8,9 @@
 
     <dimen name="actionBarSize">45dp</dimen>
 
+    <dimen name="card_corner_radius">5dp</dimen>
+    <dimen name="card_elevation">3dp</dimen>
+
     <dimen name="tabLayoutHeight">46dp</dimen>
     <dimen name="tabTextSize">15sp</dimen>
 
