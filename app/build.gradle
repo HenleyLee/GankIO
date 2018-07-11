@@ -47,11 +47,13 @@ android {
             if (!variant.buildType.debuggable) {
                 output.assemble.doLast {
                     copy {
+                        def targetName = "Gank.IO-${variant.versionName}.apk"
                         from output.outputFile
                         into project.rootDir
                         rename { String fileName ->
-                            fileName.replace("app-release.apk", "Gank.IO-${variant.versionName}.apk")
+                            fileName.replace("app-release.apk", targetName)
                         }
+                        System.out.println("generate ${targetName} success in dir ${new File(project.rootDir, targetName)}.")
                     }
                 }
             }
