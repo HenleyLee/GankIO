@@ -1,5 +1,5 @@
 # GankIO —— 干货集中营
-借助[Gank.Io](https://gank.io/)提供的API开发的一个Android客户端。
+借助[Gank.Io](https://gank.io/)提供的API使用RxJava + Retrofit + Okhttp + Glide + MVP构建开发的一个Android客户端。
 
 ## 下载 ##
 [干货集中营(Gank.Io)](https://github.com/lyl873825813/GankIO/tree/master/Gank.IO-3.0.apk)
