@@ -1,5 +1,6 @@
 package com.liyunlong.gankio.adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,22 +16,24 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.liyunlong.gankio.R;
+import com.liyunlong.gankio.delegate.ItemViewDelegate;
 import com.liyunlong.gankio.entity.GankEntity;
+import com.liyunlong.gankio.entity.GankType;
+import com.liyunlong.gankio.gank.GankConfig;
+import com.liyunlong.gankio.utils.DateHelper;
 import com.liyunlong.gankio.utils.Utility;
 import com.liyunlong.gankio.utils.ViewHolder;
 
-import java.util.Collection;
-
 /**
- * 干货分类数据Adapter(福利)
- *
  * @author liyunlong
- * @date 2018/7/4 10:48
+ * @date 2018/7/12 13:39
  */
-public class GankDataWelfareAdapter extends CommonAdapter<GankEntity> {
+public class GankDataWelfareDelegate implements ItemViewDelegate<GankEntity> {
 
-    public GankDataWelfareAdapter(Collection<GankEntity> datas) {
-        super(datas);
+    private GankType gankType;
+
+    public GankDataWelfareDelegate(GankType gankType) {
+        this.gankType = gankType;
     }
 
     @Override
@@ -39,11 +42,18 @@ public class GankDataWelfareAdapter extends CommonAdapter<GankEntity> {
     }
 
     @Override
+    public boolean isForViewType(GankEntity data, int position) {
+        return gankType == GankType.Welfare;
+    }
+
+    @Override
     public void convert(ViewHolder holder, GankEntity data, int position) {
         if (data != null) {
+            Context context = holder.getContext();
+            holder.setText(R.id.gank_data_date, DateHelper.date2String(data.getPublishedTime().getTime(), GankConfig.WELFARE_DATE_FORMAT));
             final ImageView ivPicture = holder.getView(R.id.gank_data_picture);
-            int itemWidth = (Utility.getScreenWidth(getContext()) - 4 * Utility.dp2px(getContext(), 3)) / 2;
-            Glide.with(getContext())
+            int itemWidth = (Utility.getScreenWidth(context) - 4 * Utility.dp2px(context, 3)) / 2;
+            Glide.with(context)
                     .asBitmap()
                     .load(data.getUrl())
                     .apply(new RequestOptions()

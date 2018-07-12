@@ -9,6 +9,17 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="10dp">
 
+        <ImageView
+            android:id="@+id/gank_data_icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/gank_data_title"
             android:layout_width="0dp"
@@ -22,7 +33,7 @@
             android:textColor="@color/gank_data_title"
             android:textSize="@dimen/gank_data_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/gank_data_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Space
@@ -30,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/gank_data_title"
+            app:layout_constraintStart_toEndOf="@+id/gank_data_icon"
             app:layout_constraintTop_toBottomOf="@+id/gank_data_title" />
 
         <TextView

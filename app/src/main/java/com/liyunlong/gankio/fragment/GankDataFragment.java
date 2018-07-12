@@ -14,9 +14,10 @@ import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.activity.PictureActivity;
 import com.liyunlong.gankio.activity.WebActivity;
-import com.liyunlong.gankio.adapter.CommonAdapter;
-import com.liyunlong.gankio.adapter.GankDataCommonAdapter;
-import com.liyunlong.gankio.adapter.GankDataWelfareAdapter;
+import com.liyunlong.gankio.adapter.GankDataAllDelegate;
+import com.liyunlong.gankio.adapter.GankDataCommonDelegate;
+import com.liyunlong.gankio.adapter.GankDataWelfareDelegate;
+import com.liyunlong.gankio.adapter.MultiItemTypeAdapter;
 import com.liyunlong.gankio.base.BaseFragment;
 import com.liyunlong.gankio.contract.GankDataContract;
 import com.liyunlong.gankio.entity.BaseGank;
@@ -51,7 +52,7 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
     private boolean isFirst = true;
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
-    private CommonAdapter<GankEntity> mAdapter;
+    private MultiItemTypeAdapter<GankEntity> mAdapter;
 
     public static GankDataFragment newInstance(String gankType) {
         Bundle bundle = new Bundle();
@@ -90,7 +91,6 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
                     Utility.dp2px(getContext(), 8)
             ));
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            mAdapter = new GankDataCommonAdapter(null, gankType);
         } else {
             mRecyclerView.addItemDecoration(new SpaceDividerItemDecoration(
                     Utility.dp2px(getContext(), 6),
@@ -99,8 +99,11 @@ public class GankDataFragment extends BaseFragment<GankDataPresenter> implements
             mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(
                     2, StaggeredGridLayoutManager.VERTICAL
             ));
-            mAdapter = new GankDataWelfareAdapter(null);
         }
+        mAdapter = new MultiItemTypeAdapter<>(null);
+        mAdapter.addItemViewDelegate(new GankDataAllDelegate(gankType));
+        mAdapter.addItemViewDelegate(new GankDataWelfareDelegate(gankType));
+        mAdapter.addItemViewDelegate(new GankDataCommonDelegate(gankType));
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         setRefreshLayout(mRefreshLayout);
