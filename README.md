@@ -29,3 +29,7 @@
 * [RxPermissions](https://github.com/tbruyelle/RxPermissions)
 * [SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
 * [Logger](https://github.com/orhanobut/logger)
+
+## 感谢 ##
+* [代码家](https://github.com/daimajia)
+* [干货集中营](https://gank.io/)
