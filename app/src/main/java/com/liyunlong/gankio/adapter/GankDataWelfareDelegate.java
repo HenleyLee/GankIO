@@ -8,13 +8,13 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.delegate.ItemViewDelegate;
 import com.liyunlong.gankio.entity.GankEntity;
@@ -53,7 +53,7 @@ public class GankDataWelfareDelegate implements ItemViewDelegate<GankEntity> {
             holder.setText(R.id.gank_data_date, DateHelper.date2String(data.getPublishedTime().getTime(), GankConfig.WELFARE_DATE_FORMAT));
             final ImageView ivPicture = holder.getView(R.id.gank_data_picture);
             int itemWidth = (Utility.getScreenWidth(context) - 4 * Utility.dp2px(context, 3)) / 2;
-            Glide.with(context)
+            GlideApp.with(context)
                     .asBitmap()
                     .load(data.getUrl())
                     .apply(new RequestOptions()

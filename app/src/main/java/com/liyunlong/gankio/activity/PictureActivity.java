@@ -15,12 +15,12 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.base.BaseActivity;
 import com.liyunlong.gankio.gank.GankConfig;
@@ -120,7 +120,7 @@ public class PictureActivity extends BaseActivity {
     @Override
     protected void loadData() {
         super.loadData();
-        Glide.with(getContext())
+        GlideApp.with(getContext())
                 .asBitmap()
                 .load(mUrl)
                 .apply(new RequestOptions()
@@ -213,7 +213,7 @@ public class PictureActivity extends BaseActivity {
                 .map(new Function<String, Bitmap>() {
                     @Override
                     public Bitmap apply(String url) throws Exception {
-                        return Glide.with(getContext())
+                        return GlideApp.with(getContext())
                                 .asBitmap()
                                 .load(url)
                                 .apply(new RequestOptions()

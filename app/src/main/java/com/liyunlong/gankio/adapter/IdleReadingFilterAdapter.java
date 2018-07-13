@@ -3,11 +3,11 @@ package com.liyunlong.gankio.adapter;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.entity.SubCategoryEntity;
 import com.liyunlong.gankio.utils.ViewHolder;
@@ -46,7 +46,7 @@ public class IdleReadingFilterAdapter extends CommonAdapter<SubCategoryEntity> {
         holder.setText(R.id.filter_name, data.getTitle());
         holder.setChecked(R.id.filter_check, TextUtils.equals(selectedCategory, data.getCategoryId()));
         final ImageView ivIcon = holder.getView(R.id.filter_icon);
-        Glide.with(getContext())
+        GlideApp.with(getContext())
                 .asBitmap()
                 .load(data.getIcon())
                 .apply(new RequestOptions()

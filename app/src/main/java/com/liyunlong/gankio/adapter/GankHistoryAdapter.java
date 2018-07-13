@@ -6,13 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.GankDaily;
@@ -49,7 +49,7 @@ public class GankHistoryAdapter extends CommonAdapter<BaseGank<GankDaily>> {
                 welfareUrl = welfareData.get(0).getUrl();
             }
             final ImageView ivPicture = holder.getView(R.id.gank_history_picture);
-            Glide.with(getContext())
+            GlideApp.with(getContext())
                     .asBitmap()
                     .load(welfareUrl)
                     .apply(new RequestOptions()

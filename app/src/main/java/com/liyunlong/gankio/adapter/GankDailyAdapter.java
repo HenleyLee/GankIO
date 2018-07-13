@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.entity.GankEntity;
 import com.liyunlong.gankio.entity.GankType;
@@ -87,7 +87,7 @@ public class GankDailyAdapter extends CommonAdapter<List<GankEntity>> {
 
     private ImageView generateImageView(GankEntity gankEntity) {
         ImageView imageView = (ImageView) inflater.inflate(R.layout.layout_view_image, null);
-        Glide.with(getContext())
+        GlideApp.with(getContext())
                 .asBitmap()
                 .load(gankEntity.getUrl())
                 .apply(new RequestOptions()

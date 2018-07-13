@@ -2,11 +2,11 @@ package com.liyunlong.gankio.adapter;
 
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.entity.IdleReadingEntity;
 import com.liyunlong.gankio.utils.DateHelper;
@@ -42,7 +42,7 @@ public class IdleReadingAdapter extends CommonAdapter<IdleReadingEntity> {
                 iconUrl = site.getIcon();
             }
             final ImageView ivIcon = holder.getView(R.id.idle_reading_icon);
-            Glide.with(getContext())
+            GlideApp.with(getContext())
                     .asBitmap()
                     .load(iconUrl)
                     .apply(new RequestOptions()
