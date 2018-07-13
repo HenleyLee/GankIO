@@ -2,7 +2,9 @@ package com.liyunlong.gankio.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -10,9 +12,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.base.BaseActivity;
@@ -23,6 +33,7 @@ import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.utils.AnimationHelper;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
+import com.liyunlong.gankio.utils.Utility;
 
 import java.util.HashMap;
 
@@ -39,6 +50,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private FloatingActionButton fabSubscribe;
     private HashMap<GankType, GankDataFragment> fragments = new HashMap<>();
     private long mExitStartTime = 0;
+    private ImageView ivHeaderIcon;
+    private boolean hasLoadHeaderIcon;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -72,6 +85,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        ivHeaderIcon = headerView.findViewById(R.id.navigation_header_icon);
+
+        // 默认选中第一个菜单
         navigationView.setCheckedItem(R.id.navigation_all);
         updateCurrentFragment(GankType.All);
 
@@ -83,6 +100,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
         if (NetworkHelper.isNetworkAvailable(getContext())) {
+            loadHeaderIcon(); // 加载侧滑菜单顶部图标
             fabSubscribe.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -125,6 +143,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             } else {
                 AnimationHelper.hideFloatingActionButton(fabSubscribe);
             }
+        }
+        if (isAvailable && !hasLoadHeaderIcon) {
+            loadHeaderIcon(); // 加载侧滑菜单顶部图标
         }
     }
 
@@ -181,6 +202,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 .beginTransaction()
                 .replace(R.id.main_content, gankDataFragment, gankType.getName())
                 .commitAllowingStateLoss();
+    }
+
+    /**
+     * 加载侧滑菜单顶部图标
+     */
+    private void loadHeaderIcon() {
+        String imageUrl = Utility.getPreference(getContext()).getString(GankConfig.GANK_SPLASH_IMAGE, null);
+        if (TextUtils.isEmpty(imageUrl)) {
+            return;
+        }
+        GlideApp.with(getContext())
+                .asBitmap()
+                .load(imageUrl)
+                .apply(new RequestOptions()
+                        .circleCrop()
+                        .priority(Priority.HIGH)
+                        .diskCacheStrategy(DiskCacheStrategy.DATA)
+                )
+                .into(new BitmapImageViewTarget(ivHeaderIcon) {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        super.onResourceReady(resource, transition);
+                        hasLoadHeaderIcon = true;
+                    }
+                }); // 加载侧滑菜单顶部图标
     }
 
 }
