@@ -6,39 +6,39 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navigation_all"
-            android:icon="@drawable/ic_menu_all"
+            android:icon="@drawable/ic_navigation_all"
             android:title="@string/gank_type_all" />
         <item
             android:id="@+id/navigation_welfare"
-            android:icon="@drawable/ic_menu_welfare"
+            android:icon="@drawable/ic_navigation_welfare"
             android:title="@string/gank_type_welfare" />
         <item
             android:id="@+id/navigation_android"
-            android:icon="@drawable/ic_menu_android"
+            android:icon="@drawable/ic_navigation_android"
             android:title="@string/gank_type_android" />
         <item
             android:id="@+id/navigation_ios"
-            android:icon="@drawable/ic_menu_ios"
+            android:icon="@drawable/ic_navigation_ios"
             android:title="@string/gank_type_ios" />
         <item
             android:id="@+id/navigation_js"
-            android:icon="@drawable/ic_menu_js"
+            android:icon="@drawable/ic_navigation_js"
             android:title="@string/gank_type_js" />
         <item
             android:id="@+id/navigation_video"
-            android:icon="@drawable/ic_menu_video"
+            android:icon="@drawable/ic_navigation_video"
             android:title="@string/gank_type_video" />
         <item
             android:id="@+id/navigation_resource"
-            android:icon="@drawable/ic_menu_resource"
+            android:icon="@drawable/ic_navigation_resource"
             android:title="@string/gank_type_resources" />
         <item
             android:id="@+id/navigation_app"
-            android:icon="@drawable/ic_menu_app"
+            android:icon="@drawable/ic_navigation_app"
             android:title="@string/gank_type_app" />
         <item
             android:id="@+id/navigation_recommend"
-            android:icon="@drawable/ic_menu_recommend"
+            android:icon="@drawable/ic_navigation_recommend"
             android:title="@string/gank_type_recommend" />
     </group>
 

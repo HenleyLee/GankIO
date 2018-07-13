@@ -77,15 +77,15 @@ public class GankConfig {
 
     private static final HashMap<String, Integer> TYPE_ICON_MAP = new HashMap<String, Integer>() {
         {
-            put(GankType.All.getName(), R.drawable.ic_menu_all); // 全部
-            put(GankType.Welfare.getName(), R.drawable.ic_menu_welfare); // 福利
-            put(GankType.Android.getName(), R.drawable.ic_menu_android); // Android
-            put(GankType.IOS.getName(), R.drawable.ic_menu_ios); // IOS
-            put(GankType.JS.getName(), R.drawable.ic_menu_js); // 前端
-            put(GankType.Video.getName(), R.drawable.ic_menu_video); // 休息视频
-            put(GankType.Resources.getName(), R.drawable.ic_menu_resource); // 拓展资源
-            put(GankType.App.getName(), R.drawable.ic_menu_app); // APP
-            put(GankType.Recommend.getName(), R.drawable.ic_menu_recommend); // 瞎推荐
+            put(GankType.All.getName(), R.drawable.ic_navigation_all); // 全部
+            put(GankType.Welfare.getName(), R.drawable.ic_navigation_welfare); // 福利
+            put(GankType.Android.getName(), R.drawable.ic_navigation_android); // Android
+            put(GankType.IOS.getName(), R.drawable.ic_navigation_ios); // IOS
+            put(GankType.JS.getName(), R.drawable.ic_navigation_js); // 前端
+            put(GankType.Video.getName(), R.drawable.ic_navigation_video); // 休息视频
+            put(GankType.Resources.getName(), R.drawable.ic_navigation_resource); // 拓展资源
+            put(GankType.App.getName(), R.drawable.ic_navigation_app); // APP
+            put(GankType.Recommend.getName(), R.drawable.ic_navigation_recommend); // 瞎推荐
         }
     };
 
