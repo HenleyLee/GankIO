@@ -38,6 +38,12 @@ public class GankConfig {
     public static final int PAGE_INDEX = 1;
     public static final int PAGE_SIZE = 20;
 
+    public static final int MESSAGE_WHAT_SPLASH = 100;
+    public static final int MESSAGE_WAIT_SPLASH = 3000;
+
+    public static final String PREFERENCES_NAME = "gank_io";
+    public static final String GANK_SPLASH_IMAGE = "gank_splash_image";
+
     public static final String GANK_TYPE = "gank_type";
     public static final String GANK_DAILY = "gank_daily";
     public static final String GANK_CATEGORY = "gank_category";

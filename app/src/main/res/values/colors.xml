@@ -6,6 +6,9 @@
 
     <color name="colorBallPulse">#FC5638</color>
 
+    <color name="splash_title">#FF191919</color>
+    <color name="splash_desc">#FF999999</color>
+
     <color name="gank_divider_line">#FFCCCCCC</color>
     <color name="gank_data_title">#FF191919</color>
     <color name="gank_data_desc">#FF737373</color>

@@ -5,11 +5,14 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.liyunlong.gankio.gank.GankConfig;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,6 +24,14 @@ import java.security.NoSuchAlgorithmException;
  * @date 2018/7/4 10:03
  */
 public class Utility {
+
+    /**
+     * 获取SharedPreferences对象
+     */
+    public static SharedPreferences getPreference(Context context) {
+        return context.getApplicationContext().
+                getSharedPreferences(GankConfig.PREFERENCES_NAME, Context.MODE_PRIVATE);
+    }
 
     /**
      * dp转px
