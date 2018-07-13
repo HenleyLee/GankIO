@@ -22,6 +22,7 @@ import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
 import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.presenter.IdleReadingCategoryPresenter;
+import com.liyunlong.gankio.utils.AnimationHelper;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -96,6 +97,14 @@ public class IdleReadingActivity extends BaseActivity<IdleReadingCategoryPresent
                 WebActivity.startActivity(getContext(), GankConfig.GANK_SUBMIT_READ_NAME, GankConfig.GANK_SUBMIT_READ_URL);
             }
         });
+        if (NetworkHelper.isNetworkAvailable(getContext())) {
+            fabSubmit.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AnimationHelper.showFloatingActionButton(fabSubmit);
+                }
+            }, 1000);
+        }
     }
 
     @Override
@@ -140,7 +149,11 @@ public class IdleReadingActivity extends BaseActivity<IdleReadingCategoryPresent
             hasLoadCategory = true;
         }
         if (fabSubmit != null) {
-            fabSubmit.setVisibility(isAvailable ? View.VISIBLE : View.GONE);
+            if (isAvailable) {
+                AnimationHelper.showFloatingActionButton(fabSubmit);
+            } else {
+                AnimationHelper.hideFloatingActionButton(fabSubmit);
+            }
         }
     }
 

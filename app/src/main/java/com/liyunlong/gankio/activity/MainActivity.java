@@ -1,5 +1,7 @@
 package com.liyunlong.gankio.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,6 +20,7 @@ import com.liyunlong.gankio.entity.GankType;
 import com.liyunlong.gankio.fragment.GankDataFragment;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
+import com.liyunlong.gankio.utils.AnimationHelper;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
 
@@ -36,6 +39,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private FloatingActionButton fabSubscribe;
     private HashMap<GankType, GankDataFragment> fragments = new HashMap<>();
     private long mExitStartTime = 0;
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getContentLayoutId() {
@@ -73,7 +82,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 WebActivity.startActivity(getContext(), GankConfig.GANK_SUBSCRIBE_NAME, GankConfig.GANK_SUBSCRIBE_URL);
             }
         });
-        fabSubscribe.setVisibility(NetworkHelper.isNetworkAvailable(getContext()) ? View.VISIBLE : View.GONE);
+        if (NetworkHelper.isNetworkAvailable(getContext())) {
+            fabSubscribe.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AnimationHelper.showFloatingActionButton(fabSubscribe);
+                }
+            }, 1000);
+        }
     }
 
     @Override
@@ -104,7 +120,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onNetWorkChange(boolean isAvailable, NetworkType oldType, NetworkType newType) {
         if (fabSubscribe != null) {
-            fabSubscribe.setVisibility(isAvailable ? View.VISIBLE : View.GONE);
+            if (isAvailable) {
+                AnimationHelper.showFloatingActionButton(fabSubscribe);
+            } else {
+                AnimationHelper.hideFloatingActionButton(fabSubscribe);
+            }
         }
     }
 

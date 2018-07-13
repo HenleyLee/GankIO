@@ -8,7 +8,7 @@
     <dimen name="design_navigation_icon_size" tools:override="true">18dp</dimen>
     <dimen name="design_navigation_icon_padding" tools:override="true">18dp</dimen>
 
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
 
     <dimen name="actionBarSize">45dp</dimen>
 
