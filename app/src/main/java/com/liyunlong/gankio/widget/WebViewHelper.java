@@ -58,23 +58,20 @@ public class WebViewHelper {
     }
 
     /**
-     * 处理拦截到的Url
+     * 根据Url打开第三方APP
      */
-    public static boolean handleInterceptUrl(Context context, String url) {
-        if (!url.startsWith("http") && !url.startsWith("https")) { // 判断Url是否以http或https开头
-            Logger.i("InterceptUrl = " + url);
+    public static boolean openThirdPartyApp(Context context, String url) {
+        Logger.i("InterceptUrl = " + url);
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); // 打开APP
+        } catch (NullPointerException | ActivityNotFoundException e) { // 打开APP失败
             try {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); // 打开APP
-            } catch (NullPointerException | ActivityNotFoundException e) { // 打开APP失败
-                try {
-                    context.startActivity(Intent.parseUri(url, 0)); // 打开APP
-                } catch (URISyntaxException | ActivityNotFoundException e1) {
-                    return false;
-                }
+                context.startActivity(Intent.parseUri(url, 0)); // 打开APP
+            } catch (URISyntaxException | ActivityNotFoundException e1) {
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
 
 

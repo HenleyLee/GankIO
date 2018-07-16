@@ -26,7 +26,6 @@ import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.base.BaseActivity;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
-import com.liyunlong.gankio.mvp.MVPViewHelper;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
 import com.liyunlong.gankio.utils.ShareHelper;
@@ -102,7 +101,7 @@ public class WebActivity extends BaseActivity implements OnNetWorkChangeListener
         content = findViewById(R.id.web_content);
         mWebView = findViewById(R.id.web_webview);
         WebViewHelper.initWebViewSettings(mWebView);
-        mWebView.setWebViewClient(new CustomWebViewClient(getMvpViewHelper()));
+        mWebView.setWebViewClient(new CustomWebViewClient(getContext()));
         mWebView.setWebChromeClient(new CustomWebChromeClient(progressBar));
         mWebView.setDownloadListener(new DownloadListener() { // 初始化下载
             @Override
@@ -253,10 +252,10 @@ public class WebActivity extends BaseActivity implements OnNetWorkChangeListener
 
     private static final class CustomWebViewClient extends WebViewClient {
 
-        private MVPViewHelper mvpViewHelper;
+        private BaseActivity activity;
 
-        CustomWebViewClient(MVPViewHelper mvpViewHelper) {
-            this.mvpViewHelper = mvpViewHelper;
+        CustomWebViewClient(BaseActivity activity) {
+            this.activity = activity;
         }
 
         @Override
@@ -265,15 +264,17 @@ public class WebActivity extends BaseActivity implements OnNetWorkChangeListener
             if (errorCode == ERROR_HOST_LOOKUP
                     || errorCode == ERROR_PROXY_AUTHENTICATION
                     || errorCode == ERROR_CONNECT) {
-                mvpViewHelper.showNetworkErrorLayout();
+                activity.showNetworkErrorLayout();
             } else if (errorCode == ERROR_TIMEOUT) {
-                mvpViewHelper.showNetworkPoorLayout();
+                activity.showNetworkPoorLayout();
             } else if (errorCode == ERROR_UNKNOWN
                     || errorCode == ERROR_FAILED_SSL_HANDSHAKE
                     || errorCode == ERROR_FILE_NOT_FOUND
                     || errorCode == ERROR_BAD_URL
                     || errorCode == ERROR_FILE) {
-                mvpViewHelper.showErrorLayout();
+                activity.showErrorLayout();
+            } else {
+                activity.showEmptyLayout();
             }
         }
 
@@ -284,11 +285,11 @@ public class WebActivity extends BaseActivity implements OnNetWorkChangeListener
                 if (request.isForMainFrame()) {
                     int statusCode = errorResponse.getStatusCode();
                     if (statusCode == 404) {
-                        mvpViewHelper.showErrorLayout();
+                        activity.showErrorLayout();
                     }
                 } else {
                     if (!request.getRequestHeaders().containsKey("Referer")) {
-                        mvpViewHelper.showErrorLayout();
+                        activity.showErrorLayout();
                     }
                 }
             }
@@ -301,7 +302,8 @@ public class WebActivity extends BaseActivity implements OnNetWorkChangeListener
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (WebViewHelper.handleInterceptUrl(view.getContext(), url)) {
+            if (!url.startsWith("http") && !url.startsWith("https")) { // 判断Url是否以http或https开头
+                WebViewHelper.openThirdPartyApp(activity, url); // 打开第三方APP
                 return true;
             }
             view.loadUrl(url);
