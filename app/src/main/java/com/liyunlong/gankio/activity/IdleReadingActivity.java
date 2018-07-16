@@ -103,7 +103,7 @@ public class IdleReadingActivity extends BaseActivity<IdleReadingCategoryPresent
                 public void run() {
                     AnimationHelper.showFloatingActionButton(fabSubmit);
                 }
-            }, 1000);
+            }, 2000);
         }
     }
 

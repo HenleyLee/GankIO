@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 public void run() {
                     AnimationHelper.showFloatingActionButton(fabSubscribe);
                 }
-            }, 1000);
+            }, 1500);
         }
     }
 
@@ -188,9 +188,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     /**
-     * 更新当前Fragment
-     *
-     * @param gankType
+     * 根据GankType更新当前Fragment
      */
     private void updateCurrentFragment(GankType gankType) {
         GankDataFragment gankDataFragment = fragments.get(gankType);
