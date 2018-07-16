@@ -51,10 +51,6 @@ public class WebViewHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);// HTTP/HTTPS混合加载
         }
-        webView.setFocusable(true);
-        webView.setFocusableInTouchMode(true);
-        webView.requestFocusFromTouch(); // 设置支持获取手势焦点(WebView中有输入框时必须设置)
-        webView.requestFocus();// 设置触摸焦点起作用
     }
 
     /**

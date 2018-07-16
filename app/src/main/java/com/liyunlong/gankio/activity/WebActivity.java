@@ -8,6 +8,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.liyunlong.gankio.NetworkChangeReceiver;
 import com.liyunlong.gankio.R;
@@ -30,6 +32,7 @@ import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
 import com.liyunlong.gankio.utils.ShareHelper;
 import com.liyunlong.gankio.utils.Utility;
+import com.liyunlong.gankio.widget.ToolBarHelper;
 import com.liyunlong.gankio.widget.WebViewHelper;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -89,6 +92,25 @@ public class WebActivity extends BaseActivity implements OnNetWorkChangeListener
         mUrl = intent.getStringExtra(GankConfig.GANK_PAGE_URL);
         mTitle = intent.getStringExtra(GankConfig.GANK_PAGR_TITLE);
         Logger.i("Url = " + mUrl);
+    }
+
+    @Override
+    protected void initToolBar(ToolBarHelper toolBarHelper) {
+        super.initToolBar(toolBarHelper);
+        final TextView titleTextView = toolBarHelper.getTitleTextView();
+        if (titleTextView != null) {
+            titleTextView.setFocusable(true);
+            titleTextView.setFocusableInTouchMode(true);
+            titleTextView.setSingleLine(true);
+            titleTextView.setMarqueeRepeatLimit(-1);
+            titleTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+            titleTextView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    titleTextView.requestFocus();
+                }
+            }, 800);
+        }
     }
 
     @Override

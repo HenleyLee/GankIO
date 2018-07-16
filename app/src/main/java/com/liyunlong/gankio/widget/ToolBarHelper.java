@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.liyunlong.gankio.R;
 
+import java.lang.reflect.Field;
+
 /**
  * ToolBar工具类
  *
@@ -285,6 +287,22 @@ public class ToolBarHelper {
             params.gravity = gravity;
             mToolBar.addView(view, params);
         }
+    }
+
+    /**
+     * 获取标题TextView
+     */
+    public TextView getTitleTextView() {
+        try {
+            Field field = Toolbar.class.getDeclaredField("mTitleTextView");
+            field.setAccessible(true);
+            return (TextView) field.get(mToolBar);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
