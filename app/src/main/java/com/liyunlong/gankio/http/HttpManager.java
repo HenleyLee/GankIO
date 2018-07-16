@@ -62,9 +62,9 @@ public class HttpManager {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
         okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(8, TimeUnit.SECONDS)
-                .readTimeout(8, TimeUnit.SECONDS)
-                .writeTimeout(8, TimeUnit.SECONDS)
+                .readTimeout(GankConfig.HTTP_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(GankConfig.HTTP_TIME_OUT, TimeUnit.SECONDS)
+                .connectTimeout(GankConfig.HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(new NetworkInterceptor())
                 .build();
