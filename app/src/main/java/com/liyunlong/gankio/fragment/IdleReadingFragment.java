@@ -20,16 +20,18 @@ import com.liyunlong.gankio.base.BaseFragment;
 import com.liyunlong.gankio.contract.IdleReadingDetailContract;
 import com.liyunlong.gankio.entity.BaseGank;
 import com.liyunlong.gankio.entity.CategoryEntity;
-import com.liyunlong.gankio.entity.SubCategoryEntity;
 import com.liyunlong.gankio.entity.IdleReadingEntity;
+import com.liyunlong.gankio.entity.SubCategoryEntity;
 import com.liyunlong.gankio.gank.GankConfig;
 import com.liyunlong.gankio.http.HttpException;
+import com.liyunlong.gankio.listener.OnIdleReadingCategoryCallback;
 import com.liyunlong.gankio.listener.OnItemClickListener;
 import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.presenter.IdleReadingDetailPresenter;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
 import com.liyunlong.gankio.utils.Utility;
+import com.liyunlong.gankio.widget.IdleReadingCategoryView;
 import com.liyunlong.gankio.widget.SpaceDividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -43,7 +45,7 @@ import java.util.List;
  * @author liyunlong
  * @date 2018/7/9 14:57
  */
-public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, IdleReadingDetailContract.View, OnNetWorkChangeListener {
+public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter> implements OnRefreshLoadMoreListener, OnItemClickListener, IdleReadingDetailContract.View, OnNetWorkChangeListener, OnIdleReadingCategoryCallback {
 
     private String categoryId;
     private CategoryEntity category;
@@ -55,6 +57,8 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
     private IdleReadingAdapter mAdapter;
     private IdleReadingFilterAdapter mFilterAdapter;
     private AlertDialog mFilterDialog;
+    private AlertDialog mCategoryDialog;
+    private IdleReadingCategoryView mIdleReadingCategoryView;
 
     public static IdleReadingFragment newInstance(CategoryEntity category) {
         Bundle bundle = new Bundle();
@@ -93,6 +97,7 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new IdleReadingAdapter(null);
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnIdleReadingCategoryCallback(this);
         mRecyclerView.setAdapter(mAdapter);
         setRefreshLayout(mRefreshLayout);
     }
@@ -146,6 +151,13 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
     }
 
     @Override
+    public void onIdleReadingCategoryCallback(IdleReadingEntity.Site site) {
+        if (site != null && !TextUtils.isEmpty(site.getUrl())) {
+            showCategoryDialog(site);
+        }
+    }
+
+    @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         pageIndex++;
         loadData();
@@ -153,6 +165,7 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        restoreLayout();
         if (categories == null || categories.isEmpty()) {
             getPresenter().getIdleReadingSubCategory(category.getCategoryEN());
         } else {
@@ -225,7 +238,7 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
         if (mFilterDialog == null) {
             Context context = requireContext();
             mFilterDialog = new AlertDialog.Builder(context)
-                    .setTitle("请选择")
+                    .setTitle(category.getCategoryCN())
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
@@ -260,6 +273,26 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
         mFilterAdapter.setSelectedCategory(categoryId);
         mFilterAdapter.notifyDataSetChanged();
         mFilterDialog.show();
+    }
+
+    private void showCategoryDialog(final IdleReadingEntity.Site site) {
+        if (mCategoryDialog == null) {
+            Context context = requireContext();
+            mCategoryDialog = new AlertDialog.Builder(context)
+                    .setTitle(category.getCategoryCN())
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(R.string.open, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            WebActivity.startActivity(getContext(), site.getName(), site.getUrl());
+                        }
+                    })
+                    .create();
+            mIdleReadingCategoryView = new IdleReadingCategoryView(context);
+            mCategoryDialog.setView(mIdleReadingCategoryView);
+        }
+        mIdleReadingCategoryView.updateSite(site);
+        mCategoryDialog.show();
     }
 
     private void stopRefreshingOrLoading() {

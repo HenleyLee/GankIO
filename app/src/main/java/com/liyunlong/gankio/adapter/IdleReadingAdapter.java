@@ -1,5 +1,6 @@
 package com.liyunlong.gankio.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Priority;
@@ -9,6 +10,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.liyunlong.gankio.GlideApp;
 import com.liyunlong.gankio.R;
 import com.liyunlong.gankio.entity.IdleReadingEntity;
+import com.liyunlong.gankio.listener.OnIdleReadingCategoryCallback;
 import com.liyunlong.gankio.utils.DateHelper;
 import com.liyunlong.gankio.utils.ViewHolder;
 
@@ -22,8 +24,14 @@ import java.util.Collection;
  */
 public class IdleReadingAdapter extends CommonAdapter<IdleReadingEntity> {
 
+    private OnIdleReadingCategoryCallback mCallback;
+
     public IdleReadingAdapter(Collection<IdleReadingEntity> datas) {
         super(datas);
+    }
+
+    public void setOnIdleReadingCategoryCallback(OnIdleReadingCategoryCallback mCallback) {
+        this.mCallback = mCallback;
     }
 
     @Override
@@ -37,11 +45,19 @@ public class IdleReadingAdapter extends CommonAdapter<IdleReadingEntity> {
             holder.setText(R.id.idle_reading_title, data.getTitle());
             holder.setText(R.id.idle_reading_date, DateHelper.getTimestampString(data.getPublishedTime()));
             String iconUrl = null;
-            IdleReadingEntity.Site site = data.getSite();
+            final IdleReadingEntity.Site site = data.getSite();
             if (site != null) {
                 iconUrl = site.getIcon();
             }
             final ImageView ivIcon = holder.getView(R.id.idle_reading_icon);
+            ivIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallback != null) {
+                        mCallback.onIdleReadingCategoryCallback(site);
+                    }
+                }
+            });
             GlideApp.with(getContext())
                     .asBitmap()
                     .load(iconUrl)
