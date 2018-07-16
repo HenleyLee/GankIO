@@ -1,5 +1,6 @@
 package com.liyunlong.gankio.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -59,8 +60,9 @@ public class GankDailyAdapter extends CommonAdapter<List<GankEntity>> {
                 inflater = LayoutInflater.from(getContext());
             }
             String gankType = data.get(0).getType();
+            int gankTypeColor = ContextCompat.getColor(getContext(), GankConfig.getTypeColor(gankType));
             holder.setText(R.id.gank_daily_title, gankType);
-            holder.setTextColor(R.id.gank_daily_title, GankConfig.getTypeColor(gankType));
+            holder.setTextColor(R.id.gank_daily_title, gankTypeColor);
             LinearLayout container = holder.getView(R.id.gank_daily_container);
             container.removeAllViews();
             View itemView;

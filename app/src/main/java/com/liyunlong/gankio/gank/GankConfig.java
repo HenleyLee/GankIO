@@ -71,15 +71,15 @@ public class GankConfig {
 
     private static final HashMap<String, Integer> TYPE_COLOR_MAP = new HashMap<String, Integer>() {
         {
-            put(GankType.All.getName(), 0X00000000); // 全部
-            put(GankType.Welfare.getName(), 0XFFFF4081); // 福利
-            put(GankType.Android.getName(), 0XFF388E3C); // Android
-            put(GankType.IOS.getName(), 0XFF0377BC); // IOS
-            put(GankType.JS.getName(), 0XFFEF6C02); // 前端
-            put(GankType.Video.getName(), 0xff039588); // 休息视频
-            put(GankType.Resources.getName(), 0XFF546E7A); // 拓展资源
-            put(GankType.App.getName(), 0XFFC02E34); // APP
-            put(GankType.Recommend.getName(), 0XFF4527A0); // 瞎推荐
+            put(GankType.All.getName(), R.color.color_type_all); // 全部
+            put(GankType.Welfare.getName(), R.color.color_type_welfare); // 福利
+            put(GankType.Android.getName(), R.color.color_type_android); // Android
+            put(GankType.IOS.getName(), R.color.color_type_ios); // IOS
+            put(GankType.JS.getName(), R.color.color_type_js); // 前端
+            put(GankType.Video.getName(), R.color.color_type_video); // 休息视频
+            put(GankType.Resources.getName(), R.color.color_type_resources); // 拓展资源
+            put(GankType.App.getName(), R.color.color_type_app); // APP
+            put(GankType.Recommend.getName(), R.color.color_type_recommend); // 瞎推荐
         }
     };
 
