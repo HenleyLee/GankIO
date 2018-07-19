@@ -215,6 +215,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 .load(imageUrl)
                 .apply(new RequestOptions()
                         .circleCrop()
+                        .placeholder(R.mipmap.ic_launcher_round)
+                        .error(R.mipmap.ic_launcher_round)
                         .priority(Priority.HIGH)
                         .diskCacheStrategy(DiskCacheStrategy.DATA)
                 )
