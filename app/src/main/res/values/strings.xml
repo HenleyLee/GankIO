@@ -9,6 +9,7 @@
 
     <string name="page_title_reading">闲读</string>
     <string name="page_title_hsitory">每日力推</string>
+    <string name="page_title_about">关于</string>
 
     <string name="copy_success">已复制到剪切板</string>
     <string name="picture_loading">图片正在加载中，请稍后&#8230;</string>
@@ -32,6 +33,9 @@
     <string name="gank_type_app">App</string>
     <string name="gank_type_recommend">瞎推荐</string>
 
+    <string name="gank_function_share">分享</string>
+    <string name="gank_function_about">关于</string>
+
     <string name="menu_main_read">Gank闲读</string>
     <string name="menu_main_history">Gank每日力推</string>
     <string name="menu_main_gankio">Gank.IO 主页</string>
@@ -48,10 +52,19 @@
     <string name="menu_picture_share">分享</string>
 
     <string name="menu_read_filter">筛选</string>
+    <string name="menu_about_share">分享</string>
 
     <string name="open">打开</string>
 
+    <string name="share_message">发现了一款非常美观的App「干货集中营&amp;gank.io」，每日分享妹子图和技术干货，还有供大家中午休息的休闲视频，完全开源，最佳的源代码，最佳的学习软件，太赞了! 推荐~：http://t.cn/Rg0hN4f</string>
+
     <string name="idle_reading_category_empty">没有加载到分类数据</string>
+
+    <string name="about_introduce_title">介绍与帮助</string>
+    <string name="about_introduce_content1">\u3000\u3000干货集中营是一款使用RxJava + Retrofit + Okhttp + Glide + MVP构建开发的一个Android客户端。每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。</string>
+    <string name="about_introduce_content2">\u3000\u3000数据和API来源于 daimajia 的 https://gank.io ，lyl873825813 完成 Android 端的设计和开发，完全开源，最佳的源代码，最佳的学习软件。</string>
+    <string name="about_developer_title">开发人员</string>
+    <string name="about_licenses_title">开源协议</string>
 
     <string name="status_empty">客官，暂无数据哟~</string>
     <string name="status_network_poor">网络环境不佳，请稍后重试~</string>

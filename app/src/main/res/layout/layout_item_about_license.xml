@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AboutItemCard"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/license_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/about_title_color"
+        tools:text="Source Name" />
+
+    <TextView
+        android:id="@+id/license_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/about_desc_color"
+        tools:text="Source Url" />
+
+    <TextView
+        android:id="@+id/license_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/about_desc_color"
+        tools:text="Source License" />
+
+</LinearLayout>

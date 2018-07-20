@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AboutItemCard"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/card_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:textColor="@color/about_title_color"
+        android:textColorLink="@color/about_link_color"
+        android:textSize="14sp"
+        tools:text="Content" />
+
+</FrameLayout>

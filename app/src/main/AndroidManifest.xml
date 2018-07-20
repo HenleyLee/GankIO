@@ -49,6 +49,9 @@
         <activity
             android:name=".activity.IdleReadingActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutUsActivity"
+            android:screenOrientation="portrait" />
 
         <!-- *************************FileProvider begin************************* -->
         <provider
