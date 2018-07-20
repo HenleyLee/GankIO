@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/gank_type"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/navigation_all"
             android:icon="@drawable/ic_navigation_all"
@@ -40,6 +42,17 @@
             android:id="@+id/navigation_recommend"
             android:icon="@drawable/ic_navigation_recommend"
             android:title="@string/gank_type_recommend" />
+    </group>
+
+    <group android:id="@+id/gank_function">
+        <item
+            android:id="@+id/navigation_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/gank_function_share" />
+        <item
+            android:id="@+id/navigation_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="@string/gank_function_about" />
     </group>
 
 </menu>

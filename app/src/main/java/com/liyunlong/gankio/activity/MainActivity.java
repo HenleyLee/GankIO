@@ -33,6 +33,7 @@ import com.liyunlong.gankio.listener.OnNetWorkChangeListener;
 import com.liyunlong.gankio.utils.AnimationHelper;
 import com.liyunlong.gankio.utils.NetworkHelper;
 import com.liyunlong.gankio.utils.NetworkType;
+import com.liyunlong.gankio.utils.ShareHelper;
 import com.liyunlong.gankio.utils.Utility;
 
 import java.util.HashMap;
@@ -136,6 +137,36 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.navigation_all:           // 全部
+            case R.id.navigation_welfare:       // 福利
+            case R.id.navigation_android:       // Android
+            case R.id.navigation_ios:           // IOS
+            case R.id.navigation_js:            // 前端
+            case R.id.navigation_video:         // 休息视频
+            case R.id.navigation_resource:      // 拓展资源
+            case R.id.navigation_app:           // APP
+            case R.id.navigation_recommend:     // 瞎推荐
+                switchGankType(item, itemId);
+                break;
+            case R.id.navigation_share:         // 分享
+                ShareHelper.shareText(getContext(), getString(R.string.share_message));
+                break;
+            case R.id.navigation_about:         // 关于
+                AboutUsActivity.startActivity(getContext());
+                break;
+            default:
+                break;
+        }
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        return true;
+    }
+
+    @Override
     public void onNetWorkChange(boolean isAvailable, NetworkType oldType, NetworkType newType) {
         if (fabSubscribe != null) {
             if (isAvailable) {
@@ -149,29 +180,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        NetworkChangeReceiver.getInstance().removeOnNetWorkChangeListener(this);
-    }
-
-    @Override
-    public void onBackClick() {
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (System.currentTimeMillis() - mExitStartTime > GankConfig.EXIT_WAIT_TIME) {
-                mExitStartTime = System.currentTimeMillis();
-                Snackbar.make(drawer, R.string.exit_app_hint, Snackbar.LENGTH_SHORT).show();
-            } else {
-                super.onBackClick();
-            }
-        }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
+    /**
+     * 切换干货类型
+     */
+    private void switchGankType(@NonNull MenuItem item, int itemId) {
         GankType gankType = GankConfig.getGankType(itemId);
         updateCurrentFragment(gankType);
         if (toolBar != null) {
@@ -181,10 +193,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 toolBar.setTitle(item.getTitle());
             }
         }
-        if (drawer != null) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-        return true;
     }
 
     /**
@@ -227,6 +235,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         hasLoadHeaderIcon = true;
                     }
                 }); // 加载侧滑菜单顶部图标
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetworkChangeReceiver.getInstance().removeOnNetWorkChangeListener(this);
+    }
+
+    @Override
+    public void onBackClick() {
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (System.currentTimeMillis() - mExitStartTime > GankConfig.EXIT_WAIT_TIME) {
+                mExitStartTime = System.currentTimeMillis();
+                Snackbar.make(drawer, R.string.exit_app_hint, Snackbar.LENGTH_SHORT).show();
+            } else {
+                super.onBackClick();
+            }
+        }
     }
 
 }
