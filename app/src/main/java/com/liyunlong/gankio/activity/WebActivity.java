@@ -237,12 +237,12 @@ public class WebActivity extends BaseActivity implements OnNetWorkChangeListener
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             if (menuSwitchScreenMode != null) {
-                menuSwitchScreenMode.setTitle(R.string.menu_web_vertical);
+                menuSwitchScreenMode.setTitle(R.string.menu_portrait_screen);
             }
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
             if (menuSwitchScreenMode != null) {
-                menuSwitchScreenMode.setTitle(R.string.menu_web_horizontal);
+                menuSwitchScreenMode.setTitle(R.string.menu_landscape_screen);
             }
         }
     }

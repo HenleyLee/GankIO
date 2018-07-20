@@ -5,13 +5,13 @@
         android:id="@+id/picture_download"
         android:orderInCategory="1"
         android:icon="@drawable/ic_menu_download"
-        android:title="@string/menu_picture_download"
+        android:title="@string/menu_download"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/picture_share"
         android:orderInCategory="2"
-        android:title="@string/menu_picture_share"
+        android:title="@string/menu_share"
         android:icon="@drawable/ic_menu_share"
         app:showAsAction="always" />
 

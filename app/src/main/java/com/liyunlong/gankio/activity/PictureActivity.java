@@ -104,8 +104,8 @@ public class PictureActivity extends BaseActivity {
             public boolean onLongClick(View v) {
                 new AlertDialog.Builder(getContext())
                         .setMessage(R.string.picture_save_ask)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 chechPermission(R.id.picture_download);
@@ -159,8 +159,8 @@ public class PictureActivity extends BaseActivity {
                             new AlertDialog.Builder(getContext())
                                     .setTitle(R.string.permission_title)
                                     .setMessage(R.string.permission_message)
-                                    .setNegativeButton(android.R.string.cancel, null)
-                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    .setNegativeButton(R.string.cancel, null)
+                                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             Utility.startPackageSettings(getContext());

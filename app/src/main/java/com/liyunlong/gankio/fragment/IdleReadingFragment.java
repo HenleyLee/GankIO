@@ -239,8 +239,8 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
             Context context = requireContext();
             mFilterDialog = new AlertDialog.Builder(context)
                     .setTitle(category.getCategoryCN())
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             categoryId = mFilterAdapter.getSelectedCategory();
@@ -280,7 +280,7 @@ public class IdleReadingFragment extends BaseFragment<IdleReadingDetailPresenter
             Context context = requireContext();
             mCategoryDialog = new AlertDialog.Builder(context)
                     .setTitle(category.getCategoryCN())
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .setPositiveButton(R.string.open, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

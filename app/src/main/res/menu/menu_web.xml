@@ -4,26 +4,26 @@
     <item
         android:id="@+id/web_refresh"
         android:orderInCategory="1"
-        android:title="@string/menu_web_refresh"
+        android:title="@string/menu_reload_url"
         app:showAsAction="never" />
     <item
         android:id="@+id/web_copy"
         android:orderInCategory="2"
-        android:title="@string/menu_web_copy"
+        android:title="@string/menu_copy_url"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_share"
         android:orderInCategory="3"
-        android:title="@string/menu_web_share"
+        android:title="@string/menu_share_url"
         app:showAsAction="never" />
     <item
         android:id="@+id/web_switch_screen_mode"
         android:orderInCategory="4"
-        android:title="@string/menu_web_horizontal"
+        android:title="@string/menu_landscape_screen"
         app:showAsAction="never" />
     <item
         android:id="@+id/web_open_with_browser"
         android:orderInCategory="5"
-        android:title="@string/menu_web_open_browser"
+        android:title="@string/menu_open_browser"
         app:showAsAction="never" />
 </menu>
