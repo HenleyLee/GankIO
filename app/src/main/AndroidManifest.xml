@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.liyunlong.gankio">
+    package="com.henley.gankio">
 
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".GankApplication"
+        android:name="com.henley.gankio.GankApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.henley.gankio.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeFullscreen">
             <intent-filter>
@@ -30,27 +30,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.henley.gankio.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.WebActivity"
+            android:name="com.henley.gankio.activity.WebActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.GankHistoryActivity"
+            android:name="com.henley.gankio.activity.GankHistoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.GankDailyActivity"
+            android:name="com.henley.gankio.activity.GankDailyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PictureActivity"
+            android:name="com.henley.gankio.activity.PictureActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.IdleReadingActivity"
+            android:name="com.henley.gankio.activity.IdleReadingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AboutUsActivity"
+            android:name="com.henley.gankio.activity.AboutUsActivity"
             android:screenOrientation="portrait" />
 
         <!-- *************************FileProvider begin************************* -->

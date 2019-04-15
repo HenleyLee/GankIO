@@ -51,7 +51,7 @@
     <!-- 关于页面 -->
     <string name="about_introduce_title">介绍与帮助</string>
     <string name="about_introduce_content1">\u3000\u3000干货集中营是一款使用RxJava + Retrofit + Okhttp + Glide + MVP构建开发的一个Android客户端。每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。</string>
-    <string name="about_introduce_content2">\u3000\u3000数据和API来源于 daimajia 的 https://gank.io ，lyl873825813 完成 Android 端的设计和开发，完全开源，最佳的源代码，最佳的学习软件。</string>
+    <string name="about_introduce_content2">\u3000\u3000数据和API来源于 daimajia 的 https://gank.io ，HenleyLee 完成 Android 端的设计和开发，完全开源，最佳的源代码，最佳的学习软件。</string>
     <string name="about_developer_title">开发人员</string>
     <string name="about_licenses_title">开源协议</string>
 

@@ -89,8 +89,8 @@
 -keep class **.BuildConfig { *; }
 
 # 保持MVP的Model和Presenter不被混淆
--keep class * implements com.liyunlong.gankio.mvp.IMVPModel
--keep class * implements com.liyunlong.gankio.mvp.IPresenter
+-keep class * implements com.henley.gankio.mvp.IMVPModel
+-keep class * implements com.henley.gankio.mvp.IPresenter
 
 # 保持 Parcelable 序列化的类不被混淆(注：aidl文件不能去混淆)
 -keep class * implements android.os.Parcelable {
