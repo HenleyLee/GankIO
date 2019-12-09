@@ -2,7 +2,7 @@
 借助 [Gank.IO](https://gank.io/) 提供的 API 使用 RxJava + Retrofit + Okhttp + Glide + MVP 构建开发的一个 Android 客户端。
 
 ## 下载 ##
-[干货集中营(Gank.IO)](./Gank.IO-v3.6.apk)
+[干货集中营(Gank.IO)](./Gank.IO-v3.8.apk)
 
 ## 预览 ##
 #### 1. 干货分类： ####
