@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/idle_reading_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tabLayoutHeight"
@@ -23,7 +23,7 @@
             app:tabTextAppearance="@style/TabLayoutTextStyle"
             app:tabTextColor="@color/tabTextColorNormal" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/idle_reading_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,7 +38,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/tab_shadow" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/idle_reading_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

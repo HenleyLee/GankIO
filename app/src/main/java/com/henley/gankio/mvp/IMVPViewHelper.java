@@ -1,6 +1,6 @@
 package com.henley.gankio.mvp;
 
-import android.support.annotation.UiThread;
+import androidx.annotation.UiThread;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 

@@ -1,6 +1,6 @@
 package com.henley.gankio.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.henley.gankio.delegate.IAdapterDelegate;
 import com.henley.gankio.delegate.ItemViewDelegate;

@@ -1,6 +1,6 @@
 package com.henley.gankio.http;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.henley.gankio.GankApplication;
 import com.henley.gankio.utils.NetworkHelper;

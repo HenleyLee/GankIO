@@ -1,7 +1,6 @@
 package com.henley.gankio;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +15,8 @@ import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ViewTarget;
+
+import androidx.annotation.NonNull;
 
 /**
  * Glide全局配置

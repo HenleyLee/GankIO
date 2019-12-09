@@ -1,6 +1,7 @@
 package com.henley.gankio.mvp;
 
-import android.support.annotation.UiThread;
+import androidx.annotation.UiThread;
+import androidx.fragment.app.Fragment;
 
 /**
  * 负责完成View与Model间的交互(作为View与Model交互的中间纽带，处理与用户的交互)
@@ -29,7 +30,7 @@ public interface IPresenter<Model, View> extends IRxjava {
      * <strong>一般在以下方法中调用：<strong/>
      * <li>{@link android.app.Activity#onDestroy()}
      * <li>{@link android.app.Fragment#onDestroy()}
-     * <li>{@link android.support.v4.app.Fragment#onDestroy()}
+     * <li>{@link Fragment#onDestroy()}
      * </ul>
      */
     @UiThread

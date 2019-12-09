@@ -76,6 +76,7 @@ public class HttpManager {
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(GankConfig.BASE_URL)
+                .validateEagerly(true)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)

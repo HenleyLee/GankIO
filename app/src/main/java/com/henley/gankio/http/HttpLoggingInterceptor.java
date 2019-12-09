@@ -1,7 +1,5 @@
 package com.henley.gankio.http;
 
-import android.support.annotation.NonNull;
-
 import com.orhanobut.logger.Logger;
 
 import java.io.EOFException;
@@ -11,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
 import okhttp3.Connection;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
